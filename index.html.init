@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démos Interactives GLPI 11</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" href="media/image/favicon.png" type="image/png">
+</head>
+<body>
+
+    <header data-aos="fade-down" data-aos-duration="1000">
+        <img src="media/image/glpi-teclib-b&w-logo.svg" alt="GLPI Logo" class="site-logo">
+        <p>Espace de Démonstration</p>
+    </header>
+
+    <main class="grid-container">
+
+        <div class="card" data-aos="fade-up">
+            <h2>Budget</h2>
+            <div class="embed-container">
+                <div style="position: relative; padding-bottom: calc(47.7604% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/b5JY0eNAz4mO6pxPxMnr?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Gérez mes budgets avec GLPI" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
+            </div>
+        </div>
+
+        <div class="card" data-aos="fade-up" data-aos-delay="100">
+            <h2>Administration de profil</h2>
+            <div class="embed-container">
+                <div style="position: relative; padding-bottom: calc(48.0126% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/s5p1rzn16z4nxGkdRqNR?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Attribuer automatiquement un profil à un groupe" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
+            </div>
+        </div>
+
+        <div class="card" data-aos="fade-left" data-aos-delay="200">
+            <h2>Formulaires</h2>
+            <div class="embed-container">
+                <div style="position: relative; padding-bottom: calc(47.0036% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/yCyyd4qFnr7RMDUmjGKu?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Formulaires avec GLPI 11" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
+            </div>
+        </div>
+
+        <div class="card" data-aos="zoom-in" data-aos-delay="300">
+            <h2>Inventaire</h2>
+            <div class="embed-container">
+                 <div style="position: relative; padding-bottom: calc(48.2507% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/4wxkGo8NfT9Q14eY90bc?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Inventorier avec GLPI Inventory" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
+            </div>
+        </div>
+
+        <div class="card" data-aos="zoom-in" data-aos-delay="300">
+            <h2>Inventaire</h2>
+            <div class="embed-container">
+                 <div style="position: relative; padding-bottom: calc(48.3837% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/wGe4en3yO1BbRLJiCAuR?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Untitled" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
+            </div>
+        </div>
+
+        <div class="card" data-aos="zoom-in" data-aos-delay="300">
+            <h2>Branding (plugin)</h2>
+            <div class="embed-container">
+                 <div style="position: relative; padding-bottom: calc(48.4595% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/cHvTLfMp8GgPRBWemKfH?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Branding" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
+            </div>
+        </div>
+
+        <div class="card" data-aos="zoom-in" data-aos-delay="300">
+            <h2>Translate (plugin)</h2>
+            <div class="embed-container">
+                 <div style="position: relative; padding-bottom: calc(48.3568% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/ziXWDG8nwUebfLnYu0Y3?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Translate" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
+            </div>
+        </div>
+
+        <div class="card" data-aos="zoom-in" data-aos-delay="300">
+            <h2>Ouvrir une instance Cloud en quelques clics</h2>
+            <div class="embed-container">
+                <div style="position: relative; padding-bottom: calc(48.6402% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/8bQiPFbHaVylIVA6kGkB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Ouvrir une instance Cloud" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
+            </div>
+        </div>        
+       
+        <div class="card" data-aos="fade-up">
+            <h2>WhatsApp (Présentation vidéo)</h2>
+            <div class="video-wrapper">
+                <video class="custom-video" src="media/video/whatsapp.mp4" poster="media/image/cover.png" width="100%" height="100%"></video>
+                <div class="play-button-overlay">
+                    <div class="play-icon">▶</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="fab-qr" class="fab-btn">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+        <span>Consulter les sites GLPI</span>
+    </div>
+
+    <div id="modal-qr" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            
+            <h2>Scannez pour emporter GLPI avec vous</h2>
+            
+            <div class="modal-qr-grid">
+                <div class="modal-qr-item">
+                    <div class="qr-box">
+                        <img src="media/qrcode/glpi.png" alt="Android QR">
+                    </div>
+                    <span>Site web GLPI</span>
+                </div>
+                
+                <div class="modal-qr-item">
+                    <div class="qr-box">
+                        <img src="media/qrcode/helpcenter.png" alt="iOS QR">
+                    </div>
+                    <span>Helpcenter de GLPI</span>
+                </div>
+
+                <div class="modal-qr-item">
+                    <div class="qr-box">
+                        <img src="media/qrcode/cloud.png" alt="iOS QR">
+                    </div>
+                    <span>J'ouvre mon instance Cloud</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 1. Initialisation des animations
+        AOS.init({ duration: 800, once: true, offset: 60 });
+
+        // 2. Gestion Vidéo : MODE PLEIN ÉCRAN IMMÉDIAT
+        const wrappers = document.querySelectorAll('.video-wrapper');
+
+        wrappers.forEach(wrapper => {
+            const video = wrapper.querySelector('video');
+
+            wrapper.addEventListener('click', () => {
+                if (video.paused) {
+                    video.play();
+                    wrapper.classList.add('is-playing');
+                    
+                    // Commande plein écran
+                    if (video.requestFullscreen) {
+                        video.requestFullscreen();
+                    } else if (video.webkitRequestFullscreen) {
+                        video.webkitRequestFullscreen();
+                    } else if (video.msRequestFullscreen) {
+                        video.msRequestFullscreen();
+                    }
+                    
+                    video.controls = true; 
+
+                } else {
+                    video.pause();
+                }
+            });
+
+            function exitHandler() {
+                if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
+                    video.pause();
+                    video.currentTime = 0;
+                    video.load();
+                    video.controls = false;
+                    wrapper.classList.remove('is-playing');
+                }
+            }
+
+            document.addEventListener('fullscreenchange', exitHandler);
+            document.addEventListener('webkitfullscreenchange', exitHandler);
+            document.addEventListener('mozfullscreenchange', exitHandler);
+            document.addEventListener('MSFullscreenChange', exitHandler);
+            
+            video.addEventListener('ended', () => {
+                document.exitFullscreen();
+            });
+        });
+
+        // 3. GESTION DU BOUTON QR CODE
+        const fabBtn = document.getElementById('fab-qr');
+        const modal = document.getElementById('modal-qr');
+        const closeBtn = document.querySelector('.modal-close');
+
+        // Vérification de sécurité (au cas où l'élément manque)
+        if(fabBtn && modal && closeBtn) {
+            
+            // Ouvrir la modale
+            fabBtn.addEventListener('click', () => {
+                modal.classList.add('is-visible');
+            });
+
+            // Fermer avec le bouton X
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('is-visible');
+            });
+
+            // Fermer en cliquant en dehors de la boite
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('is-visible');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
