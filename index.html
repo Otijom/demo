@@ -158,6 +158,30 @@ dl.termes { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap
 .terme.eclaire { box-shadow: 0 0 0 3px var(--violet); }
 @media (max-width: 860px) { .lexique-grille { grid-template-columns: 1fr; } .lexique-grille > img { display: none; } dl.termes { grid-template-columns: 1fr; } }
 
+/* ---------- Newsletter ---------- */
+.newsletter-zone { background: var(--bleu-ciel); }
+.newsletter { display: grid; grid-template-columns: 1fr minmax(320px, 460px); gap: 48px; align-items: center; }
+.newsletter-texte { display: grid; grid-template-columns: 170px 1fr; gap: 28px; align-items: center; }
+.newsletter-texte img { width: 170px; }
+.newsletter h2 { font-size: clamp(26px, 3vw, 34px); font-weight: 700; margin-bottom: 10px; }
+.newsletter-texte p { color: var(--texte-doux); max-width: 30em; }
+.newsletter ul { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 8px; font-size: 15px; }
+.newsletter li { display: flex; gap: 10px; align-items: flex-start; }
+.newsletter li::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: 9px; border-radius: 50%; background: var(--bleu); }
+.newsletter-carte { background: var(--blanc); border-radius: var(--rayon); box-shadow: var(--ombre); padding: 26px 26px 18px; }
+.newsletter-carte h3 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.newsletter-carte .sous { font-size: 14px; color: var(--texte-doux); margin-bottom: 12px; }
+.newsletter-carte iframe { display: block; width: 100%; border: 0; background: transparent; }
+.nl-vide { border: 2px dashed #B8BED6; border-radius: 14px; padding: 18px; display: grid; gap: 10px; }
+.nl-vide .champ { height: 42px; border-radius: 10px; background: var(--beige); display: flex; align-items: center; padding: 0 14px; font-size: 14px; color: #8A92B2; }
+.nl-vide .ligne { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.nl-vide .case { display: flex; gap: 10px; align-items: center; font-size: 14px; color: #8A92B2; }
+.nl-vide .case i { width: 18px; height: 18px; border-radius: 4px; border: 2px solid #B8BED6; flex: none; }
+.nl-vide .bouton { height: 44px; border-radius: 999px; background: var(--gris); }
+.nl-vide p { font-size: 13px; color: var(--texte-doux); text-align: center; }
+.nl-vide code { font-size: 12.5px; background: var(--bleu-ciel); padding: 1px 5px; border-radius: 5px; }
+@media (max-width: 900px) { .newsletter { grid-template-columns: 1fr; } .newsletter-texte { grid-template-columns: 1fr; } .newsletter-texte img { display: none; } }
+
 /* ---------- Pied de page ---------- */
 .pied { background: var(--bleu-fonce); color: #C9D2F5; font-size: 14px; }
 .pied .wrap { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between; padding: 34px 0; }
@@ -220,6 +244,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       <a href="#demos">Les démos</a>
       <a href="#parcours">Parcours</a>
       <a href="#lexique">Lexique</a>
+      <a href="#newsletter">Newsletter</a>
     </nav>
   </div>
 </header>
@@ -303,6 +328,27 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       <div class="lexique-grille">
         <img src="assets/img/lexique.webp" alt="">
         <dl class="termes" id="termes"></dl>
+      </div>
+    </div>
+  </section>
+  <section class="section newsletter-zone" id="newsletter">
+    <div class="wrap newsletter">
+      <div class="newsletter-texte">
+        <img src="assets/img/newsletter.webp" alt="">
+        <div>
+          <h2>Restez au courant des nouveautés GLPI</h2>
+          <p>Recevez la newsletter GLPI pour suivre l'actualité du logiciel, sans rien rater.</p>
+          <ul>
+            <li>Les nouvelles versions et fonctionnalités</li>
+            <li>Les nouvelles démos dès leur mise en ligne</li>
+            <li>Les webinars et événements à venir</li>
+          </ul>
+        </div>
+      </div>
+      <div class="newsletter-carte">
+        <h3>S'abonner à la newsletter</h3>
+        <p class="sous">Désinscription possible à tout moment.</p>
+        <div id="nlFormulaire"></div>
       </div>
     </div>
   </section>
@@ -484,6 +530,25 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     if (d) ouvrir(d.id, null);
   });
 
+  /* Newsletter (formulaire MailPoet en iFrame) */
+  function renderNewsletter() {
+    const nl = C.newsletter || {};
+    const brut = String(nl.iframe || "").trim();
+    const m = brut.match(/src=["']([^"']+)["']/i);
+    const url = (m ? m[1] : brut).replace(/&amp;/g, "&");
+    const zone = $("nlFormulaire");
+    if (/^https:\/\//.test(url)) {
+      const f = document.createElement("iframe");
+      f.src = url;
+      f.title = "Formulaire d'inscription à la newsletter GLPI";
+      f.loading = "lazy";
+      f.style.height = (parseInt(nl.hauteur, 10) || 520) + "px";
+      zone.replaceChildren(f);
+    } else {
+      zone.innerHTML = '<div class="nl-vide" aria-hidden="true"><div class="ligne"><span class="champ">Prénom</span><span class="champ">Nom</span></div><span class="champ">Adresse e-mail</span><span class="case"><i></i>Vous êtes déjà client ?</span><span class="bouton"></span><p>Emplacement du formulaire MailPoet : renseignez <code>newsletter.iframe</code> dans demos.js.</p></div>';
+    }
+  }
+
   /* Lien direct : …/index.html#demo-affecter-profil-groupe */
   function routeHash() {
     const h = location.hash;
@@ -493,7 +558,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
   window.addEventListener("hashchange", routeHash);
 
   $("nbDemos").textContent = demos.length;
-  renderPuces(); renderLexique(); renderTuiles(); renderParcours(); routeHash();
+  renderPuces(); renderLexique(); renderTuiles(); renderParcours(); renderNewsletter(); routeHash();
 })();
 </script>
 </body>

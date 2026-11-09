@@ -47,7 +47,7 @@ window.GLPI_DEMOS = {
   demos: [
     {
       id: "decouvrir-interface",
-      arcade: "https://app.arcade.software/share/sI8bRiItjZ8bNKrn6KBM",
+      arcade: "",
       titre: "Découvrir l'interface de GLPI",
       categorie: "premiers-pas",
       duree: "2 min",
@@ -91,7 +91,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "formulaires",
-      arcade: "https://app.arcade.software/share/yCyyd4qFnr7RMDUmjGKu",
+      arcade: "",
       titre: "Guider les demandes avec un formulaire",
       categorie: "assistance",
       duree: "3 min",
@@ -210,5 +210,19 @@ window.GLPI_DEMOS = {
     { mot: "SLA", def: "Engagement de délai (prise en charge, résolution) que GLPI applique et surveille sur les tickets." },
     { mot: "Tableau de bord", def: "Écran de synthèse composé d'indicateurs et de graphiques sur l'activité et le parc." },
     { mot: "Ticket", def: "Une demande ou un incident déclaré par un utilisateur, suivi jusqu'à sa résolution." }
-  ]
+  ],
+
+  /* Newsletter : formulaire MailPoet du site WordPress, en version iFrame.
+     1. WordPress > MailPoet > Formulaires > ouvrir le formulaire.
+     2. Panneau « Placement du formulaire » > « Shortcode et autres » >
+        copier le code de la version iFrame.
+     3. Le coller ci-dessous entre les guillemets simples de  iframe  (le code
+        complet <iframe ...></iframe> ou seulement l'adresse https://...).
+     4. hauteur : hauteur du formulaire en pixels. Augmentez-la si le bouton
+        d'inscription est coupé, diminuez-la s'il reste du blanc en bas.
+     Tant que  iframe  est vide, l'encart affiche un emplacement réservé. */
+  newsletter: {
+    iframe: '',
+    hauteur: 520
+  }
 };
