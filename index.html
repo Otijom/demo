@@ -78,7 +78,9 @@ button { font: inherit; cursor: pointer; }
 .faits b { color: var(--blanc); font-weight: 600; font-size: 20px; margin-right: 6px; font-variant-numeric: tabular-nums; }
 .accueil-visuel { position: relative; justify-self: center; }
 .accueil-visuel .perso { width: min(300px, 100%); position: relative; z-index: 1; }
-.accueil-visuel .deco-trait { position: absolute; z-index: 0; left: -80px; bottom: -70px; width: 560px; max-width: none; transform: rotate(180deg); pointer-events: none; }
+/* Vague : part du pied gauche du personnage et sort par le bord droit de l'écran (largeur calculée sur la grille) */
+.accueil-visuel .deco-trait { position: absolute; z-index: 0; left: -80px; bottom: -90px; width: calc(50vw + 10px); max-width: none; pointer-events: none; }
+@media (max-width: 1220px) { .accueil-visuel .deco-trait { width: calc(18.75vw + 390px); } }
 @media (max-width: 860px) {
   .accueil .wrap { grid-template-columns: 1fr; padding: 48px 0 56px; }
   .accueil-visuel { display: none; }
@@ -271,7 +273,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
         </div>
       </div>
       <div class="accueil-visuel">
-        <img class="deco-trait" src="assets/brush/trait-bleu.svg" alt="">
+        <img class="deco-trait" src="assets/brush/vague-bleu.svg" alt="">
         <img class="perso" src="assets/img/hero.webp" alt="">
       </div>
     </div>
