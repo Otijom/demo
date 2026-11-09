@@ -47,7 +47,7 @@ window.GLPI_DEMOS = {
   demos: [
     {
       id: "decouvrir-interface",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/sI8bRiItjZ8bNKrn6KBM",
       titre: "Découvrir l'interface de GLPI",
       categorie: "premiers-pas",
       duree: "2 min",
@@ -91,7 +91,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "formulaires",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/yCyyd4qFnr7RMDUmjGKu",
       titre: "Guider les demandes avec un formulaire",
       categorie: "assistance",
       duree: "3 min",
