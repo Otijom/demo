@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="2 14 324 208" width="324" height="208" fill="none" stroke-linejoin="round" stroke-linecap="round">
+  <!-- Agent GLPI : l'agent (robot) installé sur le poste remonte matériel et logiciels vers le serveur GLPI -->
+  <defs>
+    <clipPath id="ecranPc"><rect x="34" y="92" width="112" height="70" rx="4"/></clipPath>
+  </defs>
+  <circle cx="160" cy="120" r="106" fill="#FFFFFF" opacity=".55"/>
+  <ellipse cx="160" cy="214" rx="136" ry="9" fill="#1E2B62" opacity=".12"/>
+
+  <!-- trajet des données -->
+  <path d="M112 84C130 26 196 18 232 52" stroke="#00A5F3" stroke-width="3.5" stroke-dasharray="2 9"/>
+  <path d="m226 40 9 13-15 3" stroke="#00A5F3" stroke-width="3.5"/>
+
+  <!-- puce processeur -->
+  <g transform="rotate(-10 128 52)">
+    <path d="M118 40v-5M124 40v-5M130 40v-5M136 40v-5M118 64v5M124 64v5M130 64v5M136 64v5M115 46h-5M115 52h-5M115 58h-5M141 46h5M141 52h5M141 58h5" stroke="#1E2B62" stroke-width="2.5"/>
+    <rect x="115" y="40" width="26" height="24" rx="4" fill="#FFE02E" stroke="#1E2B62" stroke-width="3"/>
+    <rect x="122" y="46" width="12" height="12" rx="2" fill="#1E2B62"/>
+  </g>
+  <!-- barrette mémoire -->
+  <g transform="rotate(8 176 30)">
+    <path d="M154 22h44v16h-19l-3 3-3-3h-19z" fill="#A498FF" stroke="#1E2B62" stroke-width="3"/>
+    <rect x="159" y="26" width="7" height="7" rx="1" fill="#1E2B62"/><rect x="170" y="26" width="7" height="7" rx="1" fill="#1E2B62"/><rect x="186" y="26" width="7" height="7" rx="1" fill="#1E2B62"/>
+  </g>
+  <!-- logiciel -->
+  <g transform="rotate(12 214 70)">
+    <rect x="200" y="58" width="30" height="24" rx="4" fill="#FFFFFF" stroke="#1E2B62" stroke-width="3"/>
+    <path d="M200 65h30" stroke="#1E2B62" stroke-width="2.5"/>
+    <circle cx="205" cy="61.5" r="1.4" fill="#1E2B62"/>
+    <rect x="205" y="70" width="8" height="8" rx="2" fill="#00A5F3"/>
+    <rect x="216" y="70" width="10" height="3" rx="1.5" fill="#98E0FF"/><rect x="216" y="75" width="7" height="3" rx="1.5" fill="#98E0FF"/>
+  </g>
+
+  <!-- ordinateur portable avec l'agent -->
+  <rect x="26" y="84" width="128" height="86" rx="10" fill="#1E2B62" stroke="#1E2B62" stroke-width="4"/>
+  <rect x="34" y="92" width="112" height="70" rx="4" fill="#DAF4FF"/>
+  <g clip-path="url(#ecranPc)">
+    <!-- robot de l'agent -->
+    <path d="M90 104v-6" stroke="#1E2B62" stroke-width="3"/>
+    <circle cx="90" cy="97" r="4" fill="#FFE02E" stroke="#1E2B62" stroke-width="2.5"/>
+    <rect x="58" y="116" width="8" height="16" rx="3" fill="#00A5F3" stroke="#1E2B62" stroke-width="2.5"/>
+    <rect x="114" y="116" width="8" height="16" rx="3" fill="#00A5F3" stroke="#1E2B62" stroke-width="2.5"/>
+    <rect x="64" y="104" width="52" height="42" rx="12" fill="#98E0FF" stroke="#1E2B62" stroke-width="3"/>
+    <rect x="71" y="112" width="38" height="22" rx="8" fill="#1E2B62"/>
+    <circle cx="82" cy="122" r="4.5" fill="#98E0FF"/><circle cx="98" cy="122" r="4.5" fill="#98E0FF"/>
+    <circle cx="83.5" cy="120.5" r="1.5" fill="#FFFFFF"/><circle cx="99.5" cy="120.5" r="1.5" fill="#FFFFFF"/>
+    <path d="M85 129q5 3 10 0" stroke="#98E0FF" stroke-width="2"/>
+    <!-- barre de progression de l'inventaire -->
+    <rect x="58" y="150" width="64" height="6" rx="3" fill="#FFFFFF"/>
+    <rect x="58" y="150" width="44" height="6" rx="3" fill="#00A5F3"/>
+    <path d="M118 92l-50 70h18l50-70z" fill="#FFFFFF" opacity=".22"/>
+  </g>
+  <path d="M10 170h160l-8 14H18z" fill="#FFFFFF" stroke="#1E2B62" stroke-width="4"/>
+  <path d="M74 170h32v4H74z" fill="#1E2B62" opacity=".3"/>
+
+  <!-- serveur GLPI -->
+  <rect x="222" y="66" width="86" height="40" rx="8" fill="#FFFFFF" stroke="#1E2B62" stroke-width="4"/>
+  <rect x="222" y="106" width="86" height="40" rx="8" fill="#FFFFFF" stroke="#1E2B62" stroke-width="4"/>
+  <rect x="222" y="146" width="86" height="40" rx="8" fill="#FFFFFF" stroke="#1E2B62" stroke-width="4"/>
+  <path d="M230 136h70M230 176h70" stroke="#DAF4FF" stroke-width="4"/>
+  <g transform="translate(240 75) scale(.3)" fill="#00A5F3" stroke="none"><path d="M84,58.6c-3.9,0-7.8-.1-11.6,0-2.4,0-3.3-.6-2.9-3.2,2.4-16.2,4.6-32.4,6.8-48.6,0-.4.1-.8.2-1.1.8-5.9.7-5.6,6.7-5.6s2.9.7,2.6,2.9c-1.3,8.7-2.5,17.4-3.7,26.2-.9,6.5-1.8,13-2.8,19.6-.3,1.6.2,2,1.7,2,5.3,0,10.7,0,16,0,2.3,0,3.1.6,2.9,3-.6,4.8-.6,5-5.4,5h-10.5,0Z"/><path d="M157.5,58.6c-4.3,0-4.3,0-3.7-4.4,2.5-17,4.9-34.1,7.2-51.2.3-2.2,1.1-3.2,3.3-3,.4,0,.8,0,1.2,0,4.9,0,4.8,0,4.1,4.9-2.4,16.5-4.6,33-7,49.4-.6,4.3-.7,4.3-5,4.3h0Z"/><path d="M132.5.1h-13.8c-2.4,0-3.4.7-3.7,3.2-2.3,17-4.7,33.8-7.1,50.8-.6,4.4-.7,4.4,3.6,4.4s4.6,0,5.2-4.5c.4-3,.9-5.9,1.2-8.9.8-7.6.8-7.6,8.3-7.6h1.2c11.4,0,19.8-7.3,21.3-18.6,1.2-8.8-3.7-18.8-16.2-18.8h0ZM127.8,29.1h-2c-5.4,0-5.5,0-4.8-5.4.5-4.4,1.3-8.8,1.8-13.2.2-1.6.8-2.1,2.4-2.1,2.2.1,4.5,0,6.7,0,4.4,0,7.2,2.5,7.9,6.9.9,6-3.2,13.6-11.9,13.7h0Z"/><path fill-opacity=".5" d="M59.1,26.5c-3.5-6.2-15.5-5.6-26.8,1.2-.6.4-1.2.8-1.8,1.2,0,0,0,0,0,0,0,0,0,0,0,0,7-2,12.8-1.9,15.4.7,1.4,1.5,1.7,3.6,1.1,6.1-.5,2.4-1.9,5-4.1,7.6-3.4,4.5-8.7,9.3-15.2,13.8-6,4.1-15.8,8.7-21.4,10.6,0,0,0,0-.1,0-.2.2-.3.5-.2.7.1.2.4.2.6.2,6.2-1.5,11.8-4.2,17.6-6.8,6.4-2.8,12.5-6.2,18.3-10.1,5.2-3.5,10.5-7.3,14.1-12.5,2.5-3.5,4.8-8.7,2.5-12.8h0Z"/><path d="M34.4,8.4c6.3-2.3,12.9-2.9,19.6-2.9,1.7,0,3.1.3,3.2-2.1.1-2.2-.7-3.1-2.9-3.2-6.5-.4-12.9,0-19.3,1-8.8,1.3-17.4,3.5-24.7,8.9-14.1,10.3-13.6,31.1.9,40.8,4.4,2.9,9.2,4.7,14.3,5.8,3,.8,9.2,1.5,10,1.6,6,.5,11.9.8,18,.3,2.5-.2,2.4-1.5,2.4-3.2,0-2-.6-2.8-2.7-2.7-1.7,0-3.5,0-5.2,0h0c-1.5,0-2.9-.3-4.4-.5-5.7-.8-9.5-2-9.5-2-11.1-3.7-15.7-10.1-15.8-20.5,0-10.2,5.4-17.3,16-21.2h0Z"/></g>
+  <circle cx="234" cy="120" r="4" fill="#00A5F3"/><circle cx="246" cy="120" r="4" fill="#98E0FF"/>
+  <rect x="262" y="117" width="36" height="6" rx="3" fill="#DAF4FF"/>
+  <circle cx="234" cy="160" r="4" fill="#00A5F3"/><circle cx="246" cy="160" r="4" fill="#98E0FF"/>
+  <rect x="262" y="157" width="36" height="6" rx="3" fill="#DAF4FF"/>
+  <path d="M232 194v12M298 194v12" stroke="#1E2B62" stroke-width="4"/>
+
+  <!-- synchronisation -->
+  <circle cx="306" cy="66" r="15" fill="#00A5F3" stroke="#1E2B62" stroke-width="3.5"/>
+  <path d="M299 63a7.5 7.5 0 0 1 13-2.5M313 69a7.5 7.5 0 0 1-13 2.5" stroke="#FFFFFF" stroke-width="2.6"/>
+  <path d="m312 55.5.2 5-5 .3M300 76.5l-.2-5 5-.3" stroke="#FFFFFF" stroke-width="2.6"/>
+
+  <!-- étincelles -->
+  <path d="M60 46l2.5 7 7 2.5-7 2.5-2.5 7-2.5-7-7-2.5 7-2.5z" fill="#FFE02E" stroke="#1E2B62" stroke-width="1.4"/>
+  <path d="M190 196l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#A498FF"/>
+</svg>

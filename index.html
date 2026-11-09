@@ -1,233 +1,500 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Démos Interactives GLPI 11</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="icon" href="media/image/favicon.png" type="image/png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GLPI Démos interactives</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Charte GLPI 2025 + complément : vive (bleu, jaune, violet) toujours posée sur une teinte douce
+   (bleu foncé, beige, bleu ciel). Jaune rare. Pas de violet/vert/orange côte à côte.
+   Mise en page : accueil bleu foncé > mode d'emploi > grille de tuiles > parcours > lexique. */
+:root {
+  --bleu-fonce: #1E2B62;
+  --bleu: #00A5F3;
+  --bleu-clair: #98E0FF;
+  --bleu-ciel: #DAF4FF;
+  --jaune: #FFE02E;
+  --violet: #A498FF;
+  --beige: #F2F2EE;
+  --gris: #E6E6E6;
+  --blanc: #FFFFFF;
+  --texte: #1E2B62;
+  --texte-doux: #4A557F;
+  --font-titre: "Poppins", "Segoe UI", system-ui, sans-serif;
+  --font-texte: "Open Sans", "Segoe UI", system-ui, sans-serif;
+  --rayon: 18px;
+  --ombre: 0 10px 30px -12px rgba(30, 43, 98, .28);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+body { margin: 0; background: var(--blanc); color: var(--texte); font-family: var(--font-texte); font-size: 16px; line-height: 1.6; }
+h1, h2, h3, h4 { font-family: var(--font-titre); line-height: 1.2; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--bleu); outline-offset: 3px; border-radius: 6px; }
+.wrap { width: min(1180px, 100% - 40px); margin-inline: auto; }
+
+/* ---------- En-tête ---------- */
+.entete { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--gris); }
+.entete .wrap { display: flex; align-items: center; gap: 24px; height: 70px; }
+.marque { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.marque img { width: 96px; height: auto; }
+.marque span { font-family: var(--font-titre); font-weight: 500; font-size: 14px; color: var(--texte-doux); padding-left: 14px; border-left: 1px solid var(--gris); }
+.nav { margin-left: auto; display: flex; gap: 6px; align-items: center; }
+.nav a { text-decoration: none; font-family: var(--font-titre); font-weight: 500; font-size: 15px; padding: 8px 14px; border-radius: 999px; }
+.nav a:hover { background: var(--bleu-ciel); }
+@media (max-width: 760px) { .nav a { display: none; } .marque span { display: none; } }
+
+/* ---------- Boutons ---------- */
+.btn { display: inline-flex; align-items: center; gap: 10px; border: 0; border-radius: 999px; padding: 13px 24px; font-family: var(--font-titre); font-weight: 600; font-size: 15px; text-decoration: none; transition: transform .15s, box-shadow .15s, background .15s; }
+.btn:hover { transform: translateY(-2px); }
+.btn-jaune { background: var(--jaune); color: var(--bleu-fonce); box-shadow: 0 8px 20px -8px rgba(255,224,46,.7); }
+.btn-fonce { background: var(--bleu-fonce); color: var(--blanc); }
+.btn-fonce:hover { background: #2a3a80; }
+.btn-contour { background: transparent; color: var(--blanc); box-shadow: inset 0 0 0 2px rgba(255,255,255,.55); }
+.btn-contour:hover { box-shadow: inset 0 0 0 2px var(--blanc); }
+.btn-clair { background: var(--bleu-ciel); color: var(--bleu-fonce); }
+.btn-clair:hover { background: var(--bleu-clair); }
+.btn svg { width: 18px; height: 18px; flex: none; }
+
+/* ---------- Accueil ---------- */
+.accueil { position: relative; overflow: hidden; background: var(--bleu-fonce); color: var(--blanc); }
+.accueil .deco-boucle { position: absolute; right: -120px; bottom: -170px; width: 560px; opacity: .95; pointer-events: none; }
+.accueil .wrap { position: relative; display: grid; grid-template-columns: 1.25fr .75fr; gap: 40px; align-items: center; padding: 64px 0 72px; }
+.surtitre { font-family: var(--font-titre); font-weight: 600; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--bleu-clair); }
+.accueil h1 { font-size: clamp(34px, 5vw, 54px); font-weight: 700; margin: 14px 0 18px; }
+.surligne { position: relative; white-space: nowrap; z-index: 0; }
+.surligne::after { content: ""; position: absolute; left: -4px; right: -6px; bottom: .08em; height: .38em; background: var(--jaune); border-radius: 3px 10px 4px 12px; transform: rotate(-1.2deg); z-index: -1; opacity: .9; }
+.accueil .chapo { font-size: 18px; max-width: 34em; color: #DCE3FF; }
+.accueil .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.faits { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 34px; font-family: var(--font-titre); font-size: 14px; color: var(--bleu-clair); }
+.faits b { color: var(--blanc); font-weight: 600; font-size: 20px; margin-right: 6px; font-variant-numeric: tabular-nums; }
+.accueil-visuel { position: relative; justify-self: center; }
+.accueil-visuel img { width: min(300px, 100%); position: relative; z-index: 1; }
+@media (max-width: 860px) {
+  .accueil .wrap { grid-template-columns: 1fr; padding: 48px 0 56px; }
+  .accueil-visuel { display: none; }
+}
+
+/* ---------- Mode d'emploi ---------- */
+.mode { background: var(--bleu-ciel); }
+.mode .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 34px 0; }
+.etape { display: flex; gap: 16px; align-items: flex-start; }
+.etape .num { flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--bleu-fonce); color: var(--blanc); display: grid; place-items: center; font-family: var(--font-titre); font-weight: 700; font-size: 18px; }
+.etape h3 { font-size: 17px; font-weight: 600; margin-bottom: 2px; }
+.etape p { font-size: 14.5px; color: var(--texte-doux); }
+@media (max-width: 760px) { .mode .wrap { grid-template-columns: 1fr; } }
+
+/* ---------- Sections ---------- */
+.section { padding: 72px 0; }
+.titre-section { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
+.titre-section h2 { font-size: clamp(28px, 3.4vw, 38px); font-weight: 700; }
+.titre-section p { color: var(--texte-doux); max-width: 36em; margin-top: 6px; }
+
+/* ---------- Filtres ---------- */
+.outils { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+.puces { display: flex; flex-wrap: wrap; gap: 8px; }
+.puce { border: 1.5px solid var(--gris); background: var(--blanc); color: var(--bleu-fonce); padding: 8px 16px; border-radius: 999px; font-family: var(--font-titre); font-weight: 500; font-size: 14px; transition: background .15s, border-color .15s; }
+.puce:hover { border-color: var(--bleu); }
+.puce[aria-pressed="true"] { background: var(--bleu-fonce); border-color: var(--bleu-fonce); color: var(--blanc); }
+.puce .nb { opacity: .65; margin-left: 4px; font-variant-numeric: tabular-nums; }
+.recherche { position: relative; flex: 0 1 300px; }
+.recherche input { width: 100%; padding: 11px 16px 11px 42px; border-radius: 999px; border: 1.5px solid var(--gris); font: inherit; font-size: 15px; color: var(--texte); background: var(--blanc); }
+.recherche input:focus { outline: none; border-color: var(--bleu); box-shadow: 0 0 0 4px var(--bleu-ciel); }
+.recherche svg { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--texte-doux); }
+
+/* ---------- Tuiles ---------- */
+.grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+.tuile { position: relative; display: flex; flex-direction: column; background: var(--blanc); border: 1px solid var(--gris); border-radius: var(--rayon); overflow: hidden; text-align: left; padding: 0; color: inherit; transition: transform .18s, box-shadow .18s, border-color .18s; }
+.tuile:hover { transform: translateY(-4px); box-shadow: var(--ombre); border-color: var(--bleu-clair); }
+.tuile-visuel { position: relative; height: 180px; background: var(--bleu-ciel); display: grid; place-items: center; padding: 18px; }
+.tuile-visuel img { max-height: 144px; width: auto; object-fit: contain; transition: transform .25s; }
+.tuile:hover .tuile-visuel img { transform: scale(1.05); }
+.tuile-visuel img[src$=".svg"] { max-height: 158px; margin-top: 4px; }
+.lecture { position: absolute; right: 14px; bottom: -22px; width: 48px; height: 48px; border-radius: 50%; background: var(--bleu-fonce); color: var(--blanc); display: grid; place-items: center; box-shadow: 0 6px 16px -6px rgba(30,43,98,.6); transition: background .15s; }
+.tuile:hover .lecture { background: var(--bleu); }
+.lecture svg { width: 20px; height: 20px; }
+.tuile-corps { padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.tuile-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-family: var(--font-titre); font-size: 12.5px; font-weight: 500; color: var(--texte-doux); }
+.tag { background: var(--bleu-ciel); color: var(--bleu-fonce); padding: 3px 10px; border-radius: 999px; font-weight: 600; }
+.tuile h3 { font-size: 18px; font-weight: 600; }
+.tuile p { font-size: 14.5px; color: var(--texte-doux); }
+.etat { position: absolute; z-index: 2; top: 12px; left: 12px; font-family: var(--font-titre); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; display: inline-flex; gap: 5px; align-items: center; }
+.etat svg { width: 14px; height: 14px; }
+.etat-bientot { background: var(--blanc); color: var(--texte-doux); border: 1px dashed #B8BED6; }
+.tuile[data-vide="true"] .tuile-visuel img { filter: grayscale(.35); opacity: .75; }
+.aucun { grid-column: 1 / -1; text-align: center; padding: 50px 20px; color: var(--texte-doux); background: var(--beige); border-radius: var(--rayon); }
+
+/* ---------- Parcours ---------- */
+.parcours-zone { background: var(--bleu-fonce); color: var(--blanc); position: relative; overflow: hidden; }
+.parcours-zone .titre-section p { color: #C9D2F5; }
+.parcours-zone .deco-crochet { position: absolute; right: -70px; top: -50px; width: 240px; opacity: .9; transform: scaleX(-1); pointer-events: none; }
+.parcours-grille { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.parcours { background: var(--blanc); color: var(--bleu-fonce); border-radius: var(--rayon); padding: 26px; display: flex; flex-direction: column; gap: 14px; }
+.parcours h3 { font-size: 20px; font-weight: 700; }
+.parcours .pour { color: var(--texte-doux); font-size: 14.5px; }
+.parcours ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: p; flex: 1; }
+.parcours li { counter-increment: p; display: flex; gap: 10px; align-items: center; font-size: 14.5px; }
+.parcours li::before { content: counter(p); flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--bleu-ciel); font-family: var(--font-titre); font-weight: 600; font-size: 13px; display: grid; place-items: center; }
+.parcours .duree-totale { font-family: var(--font-titre); font-size: 13px; font-weight: 500; color: var(--texte-doux); }
+@media (max-width: 900px) { .parcours-grille { grid-template-columns: 1fr; } }
+
+/* ---------- Lexique ---------- */
+.lexique-zone { background: var(--beige); position: relative; overflow: hidden; }
+.lexique-zone .deco-arc { position: absolute; right: -60px; top: 30px; width: 300px; pointer-events: none; }
+.lexique-grille { position: relative; display: grid; grid-template-columns: 260px 1fr; gap: 48px; align-items: start; }
+.lexique-grille > img { width: 220px; margin-top: 10px; }
+dl.termes { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 22px; }
+.terme { background: var(--blanc); border-radius: 14px; padding: 16px 18px; scroll-margin-top: 90px; }
+.terme dt { font-family: var(--font-titre); font-weight: 600; font-size: 16px; margin-bottom: 4px; }
+.terme dd { margin: 0; font-size: 14.5px; color: var(--texte-doux); }
+.terme.eclaire { box-shadow: 0 0 0 3px var(--violet); }
+@media (max-width: 860px) { .lexique-grille { grid-template-columns: 1fr; } .lexique-grille > img { display: none; } dl.termes { grid-template-columns: 1fr; } }
+
+/* ---------- Pied de page ---------- */
+.pied { background: var(--bleu-fonce); color: #C9D2F5; font-size: 14px; }
+.pied .wrap { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between; padding: 34px 0; }
+.pied img { width: 90px; }
+.pied a { color: var(--blanc); }
+.pied .liens { display: flex; gap: 22px; flex-wrap: wrap; }
+
+/* ---------- Lecteur (fenêtre) ---------- */
+dialog.lecteur { border: 0; padding: 0; width: min(1240px, 100vw - 32px); max-height: calc(100vh - 32px); border-radius: 22px; overflow: hidden; color: var(--texte); background: var(--blanc); box-shadow: 0 30px 80px -20px rgba(10,16,45,.6); }
+dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: blur(3px); }
+.lecteur-haut { display: flex; align-items: center; gap: 14px; padding: 14px 18px 14px 24px; background: var(--bleu-fonce); color: var(--blanc); }
+.lecteur-haut .fil { font-family: var(--font-titre); font-size: 13px; color: var(--bleu-clair); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lecteur-haut h2 { font-size: 18px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lecteur-haut .titres { min-width: 0; flex: 1; }
+.icone-btn { flex: none; width: 42px; height: 42px; border-radius: 50%; border: 0; background: rgba(255,255,255,.12); color: var(--blanc); display: grid; place-items: center; }
+.icone-btn:hover { background: rgba(255,255,255,.24); }
+.icone-btn svg { width: 20px; height: 20px; }
+.lecteur-corps { display: grid; grid-template-columns: 1fr 330px; max-height: calc(100vh - 32px - 70px); overflow: auto; }
+.scene { background: var(--beige); padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+/* Cadre Arcade : reprend le format du code d'intégration officiel (ratio + 41px de barre) */
+.cadre-arcade { position: relative; width: 100%; height: 0; padding-bottom: calc(var(--ratio, 56.25%) + 41px); border-radius: 14px; overflow: hidden; background: var(--blanc); box-shadow: 0 8px 24px -12px rgba(30,43,98,.35); }
+.cadre-arcade iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; color-scheme: light; }
+.emplacement-vide { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 24px; border: 2px dashed #B8BED6; border-radius: 14px; background: var(--blanc); }
+.emplacement-vide img { width: 160px; margin: 0 auto 14px; opacity: .85; }
+.emplacement-vide h3 { font-size: 20px; font-weight: 600; margin-bottom: 6px; }
+.emplacement-vide p { color: var(--texte-doux); font-size: 14.5px; max-width: 30em; }
+.emplacement-vide code { font-size: 13px; background: var(--bleu-ciel); padding: 2px 6px; border-radius: 6px; }
+.secours { font-size: 13.5px; color: var(--texte-doux); display: flex; flex-wrap: wrap; gap: 6px 14px; justify-content: space-between; }
+.secours a { font-weight: 600; color: var(--bleu-fonce); }
+.panneau { padding: 24px; display: flex; flex-direction: column; gap: 20px; border-left: 1px solid var(--gris); }
+.panneau .resume { font-size: 15.5px; }
+.panneau h4 { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--texte-doux); margin-bottom: 10px; }
+.panneau ul.etapes { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.panneau ul.etapes li { display: flex; gap: 10px; font-size: 14.5px; }
+.panneau ul.etapes li::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background: var(--bleu); }
+.mots { display: grid; gap: 10px; }
+.mot { background: var(--bleu-ciel); border-radius: 12px; padding: 10px 14px; font-size: 13.5px; color: var(--texte-doux); }
+.mot b { display: block; font-family: var(--font-titre); font-weight: 600; color: var(--bleu-fonce); font-size: 14px; }
+.navigation { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.navigation .btn { justify-content: center; padding: 11px 14px; font-size: 14px; }
+.navigation .btn[disabled] { opacity: .4; pointer-events: none; }
+.position { font-family: var(--font-titre); font-size: 13px; color: var(--texte-doux); text-align: center; font-variant-numeric: tabular-nums; }
+@media (max-width: 900px) {
+  dialog.lecteur { width: 100vw; max-width: 100vw; height: 100%; max-height: 100%; border-radius: 0; }
+  .lecteur-corps { grid-template-columns: 1fr; max-height: calc(100% - 70px); }
+  .panneau { border-left: 0; border-top: 1px solid var(--gris); }
+  .scene { padding: 12px; }
+}
+</style>
 </head>
 <body>
 
-    <header data-aos="fade-down" data-aos-duration="1000">
-        <img src="media/image/glpi-teclib-b&w-logo.svg" alt="GLPI Logo" class="site-logo">
-        <p>Espace de Démonstration</p>
-    </header>
-        
-        <div id="scroll-indicator" class="scroll-arrow">
-            <span>▼</span>
+<header class="entete">
+  <div class="wrap">
+    <a class="marque" href="#haut" aria-label="GLPI, retour en haut">
+      <img src="assets/logo-glpi.svg" alt="GLPI">
+      <span>Démos interactives</span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#demos">Les démos</a>
+      <a href="#parcours">Parcours</a>
+      <a href="#lexique">Lexique</a>
+    </nav>
+  </div>
+</header>
+
+<main id="haut">
+  <section class="accueil">
+    <img class="deco-boucle" src="assets/brush/boucle-bleu.svg" alt="">
+    <div class="wrap">
+      <div>
+        <p class="surtitre">Visite guidée de GLPI</p>
+        <h1>Découvrez GLPI, <span class="surligne">pas à pas</span></h1>
+        <p class="chapo">Des démonstrations interactives de quelques minutes pour comprendre comment GLPI aide les équipes informatiques à gérer les demandes, le matériel et les utilisateurs. Aucun compte, aucune installation : cliquez et laissez-vous guider.</p>
+        <div class="actions">
+          <button class="btn btn-jaune" id="btnDebuter" type="button">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.5 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L8 4.64A1 1 0 0 0 6.5 5.5z"/></svg>
+            Lancer la première démo
+          </button>
+          <a class="btn btn-contour" href="#parcours">Choisir un parcours</a>
         </div>
-
-    <main class="grid-container">
-
-        <div class="card" data-aos="fade-up">
-            <h2>Budget</h2>
-            <div class="embed-container">
-                <div style="position: relative; padding-bottom: calc(47.7604% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/b5JY0eNAz4mO6pxPxMnr?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Gérez mes budgets avec GLPI" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
-            </div>
+        <div class="faits">
+          <span><b id="nbDemos">0</b>démos</span>
+          <span><b>2–3</b>min chacune</span>
+          <span><b>0</b>installation</span>
         </div>
-
-        <div class="card" data-aos="fade-up" data-aos-delay="100">
-            <h2>Administration de profil</h2>
-            <div class="embed-container">
-                <div style="position: relative; padding-bottom: calc(48.0126% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/s5p1rzn16z4nxGkdRqNR?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Attribuer automatiquement un profil à un groupe" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
-            </div>
-        </div>
-
-        <div class="card" data-aos="fade-left" data-aos-delay="200">
-            <h2>Formulaires</h2>
-            <div class="embed-container">
-                <div style="position: relative; padding-bottom: calc(47.0036% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/yCyyd4qFnr7RMDUmjGKu?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Formulaires avec GLPI 11" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
-            </div>
-        </div>
-
-        <div class="card" data-aos="zoom-in" data-aos-delay="300">
-            <h2>Inventaire</h2>
-            <div class="embed-container">
-                 <div style="position: relative; padding-bottom: calc(48.2507% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/4wxkGo8NfT9Q14eY90bc?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Inventorier avec GLPI Inventory" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
-            </div>
-        </div>
-
-        <div class="card" data-aos="zoom-in" data-aos-delay="300">
-            <h2>Inventaire</h2>
-            <div class="embed-container">
-                 <div style="position: relative; padding-bottom: calc(48.3837% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/wGe4en3yO1BbRLJiCAuR?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Untitled" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
-            </div>
-        </div>
-
-        <div class="card" data-aos="zoom-in" data-aos-delay="300">
-            <h2>Branding (plugin)</h2>
-            <div class="embed-container">
-                 <div style="position: relative; padding-bottom: calc(48.4595% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/cHvTLfMp8GgPRBWemKfH?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Branding" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
-            </div>
-        </div>
-
-        <div class="card" data-aos="zoom-in" data-aos-delay="300">
-            <h2>Translate (plugin)</h2>
-            <div class="embed-container">
-                 <div style="position: relative; padding-bottom: calc(48.3568% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/ziXWDG8nwUebfLnYu0Y3?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Translate" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
-            </div>
-        </div>
-
-        <div class="card" data-aos="zoom-in" data-aos-delay="300">
-            <h2>Paramétrer un collecteur de mails</h2>
-            <div class="embed-container">
-                 <div style="position: relative; padding-bottom: calc(50.0522% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/iZA2JzrH0xF7AZYmFTlN?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Collecteurs" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
-            </div>
-        </div>
-       
-
-        <div class="card" data-aos="zoom-in" data-aos-delay="300">
-            <h2>Ouvrir une instance Cloud en quelques clics</h2>
-            <div class="embed-container">
-                <div style="position: relative; padding-bottom: calc(48.6402% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/8bQiPFbHaVylIVA6kGkB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Ouvrir une instance Cloud" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
-            </div>
-        </div>        
-       
-        <div class="card" data-aos="zoom-in" data-aos-delay="300">
-            <h2>Nouvelle interface self-service</h2>
-            <div class="embed-container">
-                 <div style="position: relative; padding-bottom: calc(49.7912% + 41px); height: 0px; width: 100%;"><iframe src="https://demo.arcade.software/1DSrA4qxOB8tyJdIGoDN?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Self-service" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
-            </div>
-        </div> 
-       
-        <div class="card" data-aos="fade-up">
-            <h2>WhatsApp (Présentation vidéo)</h2>
-            <div class="video-wrapper">
-                <video class="custom-video" src="media/video/whatsapp.mp4" poster="media/image/cover.png" width="100%" height="100%"></video>
-                <div class="play-button-overlay">
-                    <div class="play-icon">▶</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card" data-aos="fade-up">
-            <h2>GLPI et Docker (Présentation vidéo)</h2>
-            <div class="video-wrapper">
-                <video class="custom-video" src="media/video/docker.mp4" poster="media/image/cover-docker.png" width="100%" height="100%"></video>
-                <div class="play-button-overlay">
-                    <div class="play-icon">▶</div>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <div id="fab-qr" class="fab-btn">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-            <line x1="12" y1="18" x2="12.01" y2="18"></line>
-        </svg>
-        <span>Consulter les sites GLPI</span>
+      </div>
+      <div class="accueil-visuel">
+        <img src="assets/img/hero.webp" alt="">
+      </div>
     </div>
+  </section>
 
-    <div id="modal-qr" class="modal-overlay">
-        <div class="modal-content">
-            <button class="modal-close">&times;</button>
-            
-            <h2>Scannez pour emporter GLPI avec vous</h2>
-            
-            <div class="modal-qr-grid">
-                <div class="modal-qr-item">
-                    <div class="qr-box">
-                        <img src="media/qrcode/glpi.png" alt="Android QR">
-                    </div>
-                    <span>Site web GLPI</span>
-                </div>
-                
-                <div class="modal-qr-item">
-                    <div class="qr-box">
-                        <img src="media/qrcode/helpcenter.png" alt="iOS QR">
-                    </div>
-                    <span>Helpcenter de GLPI</span>
-                </div>
-
-                <div class="modal-qr-item">
-                    <div class="qr-box">
-                        <img src="media/qrcode/cloud.png" alt="iOS QR">
-                    </div>
-                    <span>J'ouvre mon instance Cloud</span>
-                </div>
-
-            </div>
-        </div>
+  <section class="mode" aria-label="Comment ça marche">
+    <div class="wrap">
+      <div class="etape"><span class="num">1</span><div><h3>Choisissez un sujet</h3><p>Chaque tuile présente une tâche courante dans GLPI.</p></div></div>
+      <div class="etape"><span class="num">2</span><div><h3>Suivez les points lumineux</h3><p>Cliquez sur les zones qui clignotent pour avancer dans la démo.</p></div></div>
+      <div class="etape"><span class="num">3</span><div><h3>Avancez à votre rythme</h3><p>Revenez en arrière ou passez à la démo suivante quand vous voulez.</p></div></div>
     </div>
-    
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // 1. Initialisation des animations AOS
-        AOS.init({ duration: 800, once: true, offset: 60 });
+  </section>
 
-        // 2. Gestion Vidéo : MODE PLEIN ÉCRAN
-        const wrappers = document.querySelectorAll('.video-wrapper');
+  <section class="section" id="demos">
+    <div class="wrap">
+      <div class="titre-section">
+        <div>
+          <h2>Toutes les démos</h2>
+          <p>Filtrez par thème ou cherchez une tâche précise.</p>
+        </div>
+      </div>
+      <div class="outils">
+        <div class="puces" id="puces" role="group" aria-label="Filtrer par thème"></div>
+        <label class="recherche" for="champRecherche">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="champRecherche" type="search" placeholder="Rechercher : ticket, utilisateur…" aria-label="Rechercher une démo">
+        </label>
+      </div>
+      <div class="grille" id="grille"></div>
+    </div>
+  </section>
 
-        wrappers.forEach(wrapper => {
-            const video = wrapper.querySelector('video');
+  <section class="section parcours-zone" id="parcours">
+    <img class="deco-crochet" src="assets/brush/crochet-bleu.svg" alt="">
+    <div class="wrap">
+      <div class="titre-section">
+        <div>
+          <h2>Par où commencer ?</h2>
+          <p>Des enchaînements de démos selon votre rôle. Les boutons « Suivante » du lecteur suivent l'ordre du parcours.</p>
+        </div>
+      </div>
+      <div class="parcours-grille" id="parcoursGrille"></div>
+    </div>
+  </section>
 
-            wrapper.addEventListener('click', () => {
-                if (video.paused) {
-                    video.play();
-                    wrapper.classList.add('is-playing');
-                    
-                    if (video.requestFullscreen) { video.requestFullscreen(); } 
-                    else if (video.webkitRequestFullscreen) { video.webkitRequestFullscreen(); } 
-                    else if (video.msRequestFullscreen) { video.msRequestFullscreen(); }
-                    
-                    video.controls = true; 
-                } else {
-                    video.pause();
-                }
-            });
+  <section class="section lexique-zone" id="lexique">
+    <img class="deco-arc" src="assets/brush/arc-violet.svg" alt="">
+    <div class="wrap">
+      <div class="titre-section">
+        <div>
+          <h2>Les mots de GLPI</h2>
+          <p>Les quelques termes à connaître pour suivre les démos sans se perdre.</p>
+        </div>
+      </div>
+      <div class="lexique-grille">
+        <img src="assets/img/lexique.webp" alt="">
+        <dl class="termes" id="termes"></dl>
+      </div>
+    </div>
+  </section>
+</main>
 
-            function exitHandler() {
-                if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
-                    video.pause();
-                    video.controls = false;
-                    wrapper.classList.remove('is-playing');
-                }
-            }
+<footer class="pied">
+  <div class="wrap">
+    <img src="assets/logo-glpi-blanc.svg" alt="GLPI">
+    <p>GLPI, développé par Teclib'</p>
+    <div class="liens">
+      <a href="https://glpi-project.org" target="_blank" rel="noopener">glpi-project.org</a>
+      <a href="#demos">Revoir les démos</a>
+    </div>
+  </div>
+</footer>
 
-            document.addEventListener('fullscreenchange', exitHandler);
-            document.addEventListener('webkitfullscreenchange', exitHandler);
-            document.addEventListener('mozfullscreenchange', exitHandler);
-            document.addEventListener('MSFullscreenChange', exitHandler);
-            
-            video.addEventListener('ended', () => { document.exitFullscreen(); });
-        });
+<dialog class="lecteur" id="lecteur" aria-labelledby="lecteurTitre">
+  <div class="lecteur-haut">
+    <div class="titres">
+      <div class="fil" id="lecteurFil"></div>
+      <h2 id="lecteurTitre"></h2>
+    </div>
+    <button class="icone-btn" id="btnFermer" type="button" aria-label="Fermer la démo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <div class="lecteur-corps">
+    <div class="scene">
+      <div class="cadre-arcade" id="cadre"></div>
+      <div class="secours" id="secours"></div>
+    </div>
+    <aside class="panneau">
+      <p class="resume" id="lecteurResume"></p>
+      <div>
+        <h4>Dans cette démo</h4>
+        <ul class="etapes" id="lecteurEtapes"></ul>
+      </div>
+      <div id="blocMots">
+        <h4>Les mots à connaître</h4>
+        <div class="mots" id="lecteurMots"></div>
+      </div>
+      <div>
+        <div class="navigation">
+          <button class="btn btn-clair" id="btnPrec" type="button">← Précédente</button>
+          <button class="btn btn-fonce" id="btnSuiv" type="button">Suivante →</button>
+        </div>
+        <p class="position" id="lecteurPosition"></p>
+      </div>
+    </aside>
+  </div>
+</dialog>
 
-        // 3. GESTION DU BOUTON FLOTTANT QR CODE
-        const fabBtn = document.getElementById('fab-qr');
-        const modal = document.getElementById('modal-qr');
-        const closeBtn = document.querySelector('.modal-close');
+<script src="demos.js"></script>
+<script>
+(function () {
+  "use strict";
+  const C = window.GLPI_DEMOS || { categories: [], demos: [], parcours: [], lexique: [] };
+  const demos = C.demos;
+  const parId = Object.fromEntries(demos.map(d => [d.id, d]));
+  const catLabel = Object.fromEntries(C.categories.map(c => [c.id, c.label]));
+  const lexique = Object.fromEntries((C.lexique || []).map(t => [t.mot, t.def]));
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-        if(fabBtn && modal && closeBtn) {
-            fabBtn.addEventListener('click', () => { modal.classList.add('is-visible'); });
-            closeBtn.addEventListener('click', () => { modal.classList.remove('is-visible'); });
-            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('is-visible'); });
-        }
+  /* Accepte un lien de partage, un lien demo.arcade.software, un code d'intégration ou l'identifiant seul */
+  function idArcade(v) {
+    if (!v) return "";
+    const s = String(v).trim();
+    const m = s.match(/arcade\.software\/(?:share\/)?([A-Za-z0-9]{12,})/);
+    if (m) return m[1];
+    return /^[A-Za-z0-9]{12,}$/.test(s) ? s : "";
+  }
 
-        // 4. GESTION DE LA FLÈCHE DE SCROLL (LE FIX EST ICI)
-        // On écoute l'événement "scroll" sur toute la fenêtre
-        window.addEventListener('scroll', () => {
-            const arrow = document.getElementById('scroll-indicator');
-            
-            // Si l'élément existe bien sur la page...
-            if (arrow) {
-                // ... et qu'on a descendu de plus de 100 pixels
-                if (window.scrollY > 100) {
-                    arrow.style.opacity = '0'; // On la rend transparente
-                } else {
-                    arrow.style.opacity = '1'; // Sinon on la réaffiche
-                }
-            }
-        });
+  const ICO_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.5 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L8 4.64A1 1 0 0 0 6.5 5.5z"/></svg>';
 
-    </script>
+  /* Filtres */
+  let filtre = "tout", requete = "";
+  function renderPuces() {
+    const items = [{ id: "tout", label: "Toutes" }].concat(C.categories);
+    $("puces").innerHTML = items.map(c => {
+      const nb = c.id === "tout" ? demos.length : demos.filter(d => d.categorie === c.id).length;
+      return '<button type="button" class="puce" data-cat="' + esc(c.id) + '" aria-pressed="' + (filtre === c.id) + '">' + esc(c.label) + '<span class="nb">' + nb + '</span></button>';
+    }).join("");
+  }
+  $("puces").addEventListener("click", e => {
+    const b = e.target.closest(".puce"); if (!b) return;
+    filtre = b.dataset.cat; renderPuces(); renderTuiles();
+  });
+  $("champRecherche").addEventListener("input", e => { requete = e.target.value.trim().toLowerCase(); renderTuiles(); });
+
+  const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  function renderTuiles() {
+    const q = norm(requete);
+    const liste = demos.filter(d => (filtre === "tout" || d.categorie === filtre) &&
+      (!q || norm([d.titre, d.resume, (d.mots || []).join(" "), catLabel[d.categorie] || ""].join(" ")).includes(q)));
+    if (!liste.length) { $("grille").innerHTML = '<div class="aucun">Aucune démo ne correspond à « ' + esc(requete) + ' ». Essayez « ticket » ou « utilisateur ».</div>'; return; }
+    $("grille").innerHTML = liste.map(d => {
+      const vide = !idArcade(d.arcade);
+      const etat = vide ? '<span class="etat etat-bientot">Bientôt disponible</span>' : "";
+      return '<button type="button" class="tuile" data-id="' + esc(d.id) + '" data-vide="' + vide + '" aria-label="' + esc("Ouvrir la démo : " + d.titre) + '">' +
+        '<div class="tuile-visuel">' + etat + '<img src="' + esc(d.image) + '" alt=""><span class="lecture">' + ICO_PLAY + '</span></div>' +
+        '<div class="tuile-corps"><div class="tuile-meta"><span class="tag">' + esc(catLabel[d.categorie] || d.categorie) + '</span><span>' + esc(d.duree || "") + '</span></div>' +
+        '<h3>' + esc(d.titre) + '</h3><p>' + esc(d.resume) + '</p></div></button>';
+    }).join("");
+  }
+  $("grille").addEventListener("click", e => { const t = e.target.closest(".tuile"); if (t) ouvrir(t.dataset.id, null); });
+
+  /* Parcours */
+  function renderParcours() {
+    $("parcoursGrille").innerHTML = (C.parcours || []).map((p, i) => {
+      const ds = p.demos.map(id => parId[id]).filter(Boolean);
+      const min = ds.reduce((a, d) => a + (parseInt(d.duree, 10) || 0), 0);
+      return '<article class="parcours"><h3>' + esc(p.titre) + '</h3><p class="pour">' + esc(p.pour) + '</p><ol>' +
+        ds.map(d => '<li>' + esc(d.titre) + '</li>').join("") +
+        '</ol><p class="duree-totale">' + ds.length + ' démos · environ ' + min + ' min</p>' +
+        '<button type="button" class="btn btn-fonce" data-parcours="' + i + '">' + ICO_PLAY + 'Suivre ce parcours</button></article>';
+    }).join("");
+  }
+  $("parcoursGrille").addEventListener("click", e => {
+    const b = e.target.closest("[data-parcours]"); if (!b) return;
+    const p = C.parcours[+b.dataset.parcours];
+    ouvrir(p.demos.find(id => parId[id]), +b.dataset.parcours);
+  });
+
+  /* Lexique */
+  function renderLexique() {
+    $("termes").innerHTML = (C.lexique || []).map(t =>
+      '<div class="terme" id="terme-' + norm(t.mot).replace(/[^a-z0-9]+/g, "-") + '"><dt>' + esc(t.mot) + '</dt><dd>' + esc(t.def) + '</dd></div>').join("");
+  }
+
+  /* Lecteur */
+  const dlg = $("lecteur");
+  let courant = null, parcoursActif = null;
+  function sequence() { return parcoursActif != null ? C.parcours[parcoursActif].demos.filter(id => parId[id]) : demos.map(d => d.id); }
+
+  function ouvrir(id, parcours) {
+    const d = parId[id]; if (!d) return;
+    if (parcours !== undefined) parcoursActif = parcours;
+    courant = id;
+    const seq = sequence(), pos = seq.indexOf(id);
+    const aid = idArcade(d.arcade);
+    $("lecteurTitre").textContent = d.titre;
+    $("lecteurFil").textContent = (parcoursActif != null ? "Parcours « " + C.parcours[parcoursActif].titre + " »" : (catLabel[d.categorie] || "")) + " · " + (d.duree || "");
+    $("lecteurResume").textContent = d.resume;
+    $("lecteurEtapes").innerHTML = (d.etapes || []).map(s => "<li>" + esc(s) + "</li>").join("");
+    const mots = (d.mots || []).filter(m => lexique[m]);
+    $("blocMots").hidden = !mots.length;
+    $("lecteurMots").innerHTML = mots.map(m => '<div class="mot"><b>' + esc(m) + '</b>' + esc(lexique[m]) + '</div>').join("");
+    $("lecteurPosition").textContent = (pos + 1) + " sur " + seq.length;
+    $("btnPrec").disabled = pos <= 0;
+    $("btnSuiv").disabled = pos >= seq.length - 1;
+
+    const cadre = $("cadre");
+    cadre.style.setProperty("--ratio", d.ratio || "56.25%");
+    if (aid) {
+      cadre.innerHTML = '<iframe src="https://demo.arcade.software/' + aid + '?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="' + esc(d.titre) + '" loading="lazy" allowfullscreen allow="clipboard-write; fullscreen"></iframe>';
+      $("secours").innerHTML = '<span>Cliquez sur les points lumineux pour avancer.</span><a href="https://app.arcade.software/share/' + aid + '" target="_blank" rel="noopener">La démo ne s\'affiche pas ? Ouvrir dans un nouvel onglet ↗</a>';
+    } else {
+      cadre.innerHTML = '<div class="emplacement-vide"><div><img src="' + esc(d.image) + '" alt=""><h3>Démo bientôt disponible</h3><p>Cette démonstration est en cours de préparation. En attendant, découvrez les autres sujets.</p></div></div>';
+      $("secours").innerHTML = '<span>Emplacement réservé : renseignez <code>arcade</code> pour « ' + esc(d.id) + ' » dans demos.js.</span>';
+    }
+    if (!dlg.open) dlg.showModal();
+    if (location.hash !== "#demo-" + id) history.replaceState(null, "", "#demo-" + id);
+  }
+  function fermer() {
+    dlg.close();
+  }
+  dlg.addEventListener("close", () => {
+    $("cadre").innerHTML = ""; courant = null; parcoursActif = null;
+    if (location.hash.startsWith("#demo-")) history.replaceState(null, "", location.pathname + location.search);
+  });
+  dlg.addEventListener("click", e => { if (e.target === dlg) fermer(); });
+  $("btnFermer").addEventListener("click", fermer);
+  function decaler(n) { const seq = sequence(), i = seq.indexOf(courant) + n; if (seq[i]) ouvrir(seq[i]); }
+  $("btnPrec").addEventListener("click", () => decaler(-1));
+  $("btnSuiv").addEventListener("click", () => decaler(1));
+  $("btnDebuter").addEventListener("click", () => {
+    const d = demos.find(x => idArcade(x.arcade)) || demos[0];
+    if (d) ouvrir(d.id, null);
+  });
+
+  /* Lien direct : …/index.html#demo-affecter-profil-groupe */
+  function routeHash() {
+    const h = location.hash;
+    if (h.startsWith("#demo-")) ouvrir(h.slice(6), null);
+    else if (h.startsWith("#terme-")) { const t = document.querySelector(h); if (t) { t.classList.add("eclaire"); setTimeout(() => t.classList.remove("eclaire"), 2200); } }
+  }
+  window.addEventListener("hashchange", routeHash);
+
+  $("nbDemos").textContent = demos.length;
+  renderPuces(); renderLexique(); renderTuiles(); renderParcours(); routeHash();
+})();
+</script>
 </body>
 </html>
