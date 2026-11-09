@@ -47,7 +47,7 @@ window.GLPI_DEMOS = {
   demos: [
     {
       id: "decouvrir-interface",
-      arcade: "https://app.arcade.software/share/sI8bRiItjZ8bNKrn6KBM",
+      arcade: "",
       titre: "Découvrir l'interface de GLPI",
       categorie: "premiers-pas",
       duree: "2 min",
@@ -58,7 +58,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "creer-ticket",
-      arcade: "https://app.arcade.software/share/oEmhKao3Trge2qrCjErQ",
+      arcade: "",
       titre: "Déclarer un incident avec un ticket",
       categorie: "assistance",
       duree: "2 min",
