@@ -10,6 +10,7 @@ demos.js            LA LISTE DES DÉMOS : le seul fichier à modifier
 assets/img/         illustrations des tuiles (issues du kit GLPI)
 assets/brush/       coups de pinceau de la charte
 assets/logo-*.svg   logos GLPI (bleu et blanc)
+newsletter-mailpoet.css   style à coller dans MailPoet pour le formulaire newsletter
 ```
 
 ## Ajouter une Arcade dans un emplacement
@@ -35,6 +36,17 @@ assets/logo-*.svg   logos GLPI (bleu et blanc)
 - **Parcours** : listes d'`id` dans `parcours`. Les boutons Précédente / Suivante du lecteur suivent cet ordre.
 - **Lexique** : les `mots` d'une démo doivent exister dans `lexique` pour s'afficher dans le lecteur.
 - **Format de l'Arcade** : si une démo apparaît avec des bandes, ajoutez `ratio: "XX%"` en reprenant la valeur du code d'intégration Arcade (`padding-bottom: calc(XX% + 41px)`).
+
+## Brancher la newsletter (MailPoet)
+
+Le formulaire vient du site WordPress, où MailPoet est installé. Il s'affiche dans le portail en version iFrame : les inscrits arrivent directement dans les listes MailPoet habituelles.
+
+1. Dans WordPress > MailPoet > Formulaires, créez (ou dupliquez) un formulaire avec : Prénom, Nom, Adresse e-mail, une case à cocher personnalisée « Vous êtes déjà client ? », la case de consentement RGPD et le bouton.
+2. Collez le contenu de `newsletter-mailpoet.css` dans « CSS personnalisé » du formulaire : il reprend les couleurs et les polices du portail.
+3. Dans « Placement du formulaire » > « Shortcode et autres », copiez le code de la version iFrame.
+4. Collez-le dans `demos.js`, champ `newsletter.iframe`, et ajustez `hauteur` si le bouton est coupé.
+
+Si le formulaire reste vide une fois en ligne, le site WordPress interdit peut-être l'affichage dans d'autres sites (réglage de sécurité, souvent appelé X-Frame-Options ou frame-ancestors). La personne qui administre WordPress doit alors autoriser l'adresse du portail.
 
 ## Lien direct vers une démo
 
