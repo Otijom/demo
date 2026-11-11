@@ -48,6 +48,16 @@ Le formulaire vient du site WordPress, où MailPoet est installé. Il s'affiche 
 
 Si le formulaire reste vide une fois en ligne, le site WordPress interdit peut-être l'affichage dans d'autres sites (réglage de sécurité, souvent appelé X-Frame-Options ou frame-ancestors). La personne qui administre WordPress doit alors autoriser l'adresse du portail.
 
+## Visite guidée « Comment ça fonctionne ? »
+
+Le bouton en haut à droite (et le lien sous les boutons de l'accueil) lance une visite guidée interactive en 13 étapes. Chaque étape met en lumière le vrai élément de la page ou du lecteur : filtres, tuile à cliquer, démo, bouton plein écran, infos de la démo, parcours, lexique, newsletter.
+Aux étapes « Lancez une démo » et « Commencez un parcours », le visiteur clique lui-même sur l'élément (ou sur « Le faire pour moi »).
+Les textes se modifient dans `index.html`, dans la liste `VISITE` (cherchez « Visite guidée interactive »).
+Lien direct pour lancer la visite : `…/glpi-demos/#aide`.
+
+Pour attirer l'œil des nouveaux venus, le bouton « Comment ça fonctionne ? » fait un petit mouvement 3 secondes après l'arrivée, puis toutes les minutes. Il s'arrête dès que le visiteur a lancé la visite une fois, et ne recommence pas à ses visites suivantes (mémorisé dans son navigateur).
+Pour changer le rythme, modifiez `ATTENTION_INTERVALLE` dans `index.html` (en millisecondes : 60000 = 1 minute).
+
 ## Lien direct vers une démo
 
 `https://votre-site/index.html#demo-affecter-profil-groupe` ouvre directement le lecteur sur cette démo (pratique dans un mail ou une présentation).

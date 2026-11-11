@@ -185,6 +185,57 @@ dl.termes { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap
 .nl-vide code { font-size: 12.5px; background: var(--bleu-ciel); padding: 1px 5px; border-radius: 5px; }
 @media (max-width: 900px) { .newsletter { grid-template-columns: 1fr; } .newsletter-texte { grid-template-columns: 1fr; } .newsletter-texte img { display: none; } }
 
+/* ---------- Bouton d'aide (en-tête) ---------- */
+.btn-aide { display: inline-flex; align-items: center; gap: 8px; margin-left: 8px; border: 0; border-radius: 999px; padding: 9px 16px 9px 10px; background: var(--bleu-fonce); color: var(--blanc); font-family: var(--font-titre); font-weight: 600; font-size: 14px; white-space: nowrap; transition: background .15s; }
+.btn-aide:hover { background: #2a3a80; }
+/* Petit mouvement pour attirer l'œil des nouveaux visiteurs (rejoué toutes les minutes) */
+.btn-aide { position: relative; }
+.btn-aide.attention { animation: aide-saut 1.4s ease-in-out; }
+.btn-aide.attention .rond { animation: aide-balance 1.4s ease-in-out; }
+.btn-aide.attention::after { content: ""; position: absolute; inset: 0; border-radius: 999px; animation: aide-onde 1.4s ease-out 2; pointer-events: none; }
+@keyframes aide-saut { 0%, 60%, 100% { transform: none; } 15% { transform: translateY(-4px) scale(1.05); } 30% { transform: none; } 45% { transform: translateY(-2px) scale(1.02); } }
+@keyframes aide-balance { 0%, 75%, 100% { transform: rotate(0); } 15% { transform: rotate(-16deg); } 30% { transform: rotate(13deg); } 45% { transform: rotate(-8deg); } 60% { transform: rotate(4deg); } }
+@keyframes aide-onde { 0% { box-shadow: 0 0 0 0 rgba(0, 165, 243, .6); } 100% { box-shadow: 0 0 0 14px rgba(0, 165, 243, 0); } }
+@media (prefers-reduced-motion: reduce) { .btn-aide.attention, .btn-aide.attention .rond, .btn-aide.attention::after { animation: none; } }
+.btn-aide .rond { width: 24px; height: 24px; border-radius: 50%; background: var(--jaune); color: var(--bleu-fonce); display: grid; place-items: center; font-size: 14px; font-weight: 700; }
+.lien-aide { background: none; border: 0; padding: 0; margin-top: 18px; color: var(--bleu-clair); font-family: var(--font-titre); font-weight: 500; font-size: 15px; text-decoration: underline; text-underline-offset: 4px; }
+.lien-aide:hover { color: var(--blanc); }
+
+/* ---------- Visite guidée interactive ---------- */
+.visite-calque { position: fixed; inset: 0; z-index: 1000; pointer-events: none; }
+.visite-voile { position: fixed; inset: 0; background: rgba(15, 22, 55, .62); transition: opacity .2s; }
+.visite-spot { position: fixed; border-radius: 14px; box-shadow: 0 0 0 4px var(--jaune), 0 0 0 9999px rgba(15, 22, 55, .62); transition: top .25s, left .25s, width .25s, height .25s; }
+.visite-spot::after { content: ""; position: absolute; inset: -4px; border-radius: 16px; animation: halo 1.6s ease-out infinite; }
+@keyframes halo { 0% { box-shadow: 0 0 0 0 rgba(255,224,46,.7); } 100% { box-shadow: 0 0 0 16px rgba(255,224,46,0); } }
+.visite-bulle { position: fixed; pointer-events: auto; width: min(360px, calc(100vw - 24px)); background: var(--blanc); color: var(--texte); border-radius: 18px; padding: 18px 20px 16px; box-shadow: 0 24px 60px -18px rgba(10,16,45,.65); transition: top .25s, left .25s; display: grid; gap: 10px; }
+.vb-haut { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.vb-num { font-family: var(--font-titre); font-size: 12.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--texte-doux); font-variant-numeric: tabular-nums; }
+.vb-quitter { border: 0; background: none; padding: 4px 2px; font-family: var(--font-titre); font-size: 13px; font-weight: 500; color: var(--texte-doux); text-decoration: underline; text-underline-offset: 3px; }
+.vb-quitter:hover { color: var(--bleu-fonce); }
+.visite-bulle h3 { font-size: 19px; font-weight: 700; }
+.visite-bulle p { font-size: 15px; color: var(--texte-doux); }
+.visite-bulle kbd { font-family: var(--font-titre); font-size: 12.5px; font-weight: 600; background: var(--beige); border: 1px solid var(--gris); border-bottom-width: 2px; border-radius: 6px; padding: 0 6px; }
+.vb-astuce { display: flex; gap: 8px; align-items: center; background: var(--bleu-ciel); border-radius: 10px; padding: 8px 12px; font-family: var(--font-titre); font-size: 13.5px; font-weight: 600; color: var(--bleu-fonce); }
+.vb-astuce[hidden] { display: none; }
+.vb-astuce i { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--bleu); animation: pouls-bleu 1.4s ease-in-out infinite; }
+@keyframes pouls-bleu { 0%, 100% { box-shadow: 0 0 0 0 rgba(0,165,243,.55); } 50% { box-shadow: 0 0 0 7px rgba(0,165,243,0); } }
+.vb-bas { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 4px; }
+.vb-progres { flex: 1; height: 5px; border-radius: 99px; background: var(--bleu-ciel); overflow: hidden; }
+.vb-progres i { display: block; height: 100%; border-radius: 99px; background: var(--bleu); transition: width .25s; }
+.vb-boutons { display: flex; gap: 8px; flex: none; }
+.vb-boutons .btn { padding: 9px 16px; font-size: 14px; }
+.vb-boutons .btn[hidden] { display: none; }
+@media (max-width: 760px) {
+  .btn-aide .txt { display: none; }
+  .btn-aide { padding: 9px; }
+}
+@media (prefers-reduced-motion: reduce) { .visite-spot::after, .vb-astuce i { animation: none; } .visite-spot, .visite-bulle { transition: none; } }
+
+/* ---------- Plein écran du lecteur ---------- */
+.icone-btn[disabled] { opacity: .35; pointer-events: none; }
+.cadre-arcade:fullscreen { padding-bottom: 0; height: 100%; border-radius: 0; background: #000; }
+.cadre-arcade:-webkit-full-screen { padding-bottom: 0; height: 100%; border-radius: 0; background: #000; }
+
 /* ---------- Pied de page ---------- */
 .pied { background: var(--bleu-fonce); color: #C9D2F5; font-size: 14px; }
 .pied .wrap { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between; padding: 34px 0; }
@@ -248,6 +299,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       <a href="#parcours">Parcours</a>
       <a href="#lexique">Lexique</a>
       <a href="#newsletter">Newsletter</a>
+      <button class="btn-aide" id="btnAide" type="button" aria-haspopup="dialog"><span class="rond" aria-hidden="true">?</span><span class="txt">Comment ça fonctionne ?</span></button>
     </nav>
   </div>
 </header>
@@ -266,6 +318,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
           </button>
           <a class="btn btn-contour" href="#parcours">Choisir un parcours</a>
         </div>
+        <button class="lien-aide" id="lienAide" type="button" aria-haspopup="dialog">Première visite ? Suivez la visite guidée de l'espace démo</button>
         <div class="faits">
           <span><b id="nbDemos">0</b>démos</span>
           <span><b>2–3</b>min chacune</span>
@@ -374,6 +427,9 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       <div class="fil" id="lecteurFil"></div>
       <h2 id="lecteurTitre"></h2>
     </div>
+    <button class="icone-btn" id="btnPleinEcran" type="button" aria-label="Afficher la démo en plein écran" title="Plein écran">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+    </button>
     <button class="icone-btn" id="btnFermer" type="button" aria-label="Fermer la démo">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
     </button>
@@ -513,12 +569,27 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       cadre.innerHTML = '<div class="emplacement-vide"><div><img src="' + esc(d.image) + '" alt=""><h3>Démo bientôt disponible</h3><p>Cette démonstration est en cours de préparation. En attendant, découvrez les autres sujets.</p></div></div>';
       $("secours").innerHTML = '<span>Emplacement réservé : renseignez <code>arcade</code> pour « ' + esc(d.id) + ' » dans demos.js.</span>';
     }
+    $("btnPleinEcran").disabled = !aid;
     if (!dlg.open) dlg.showModal();
     if (location.hash !== "#demo-" + id) history.replaceState(null, "", "#demo-" + id);
   }
   function fermer() {
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {});
     dlg.close();
   }
+  /* Plein écran : agrandit le cadre de la démo ; Échap ou le même bouton pour revenir */
+  $("btnPleinEcran").addEventListener("click", () => {
+    const cadre = $("cadre");
+    const actif = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (actif) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else {
+        const req = cadre.requestFullscreen || cadre.webkitRequestFullscreen;
+        const r = req && req.call(cadre);
+        if (r && r.catch) r.catch(() => {});
+      }
+    } catch (e) {}
+  });
   dlg.addEventListener("close", () => {
     $("cadre").innerHTML = ""; courant = null; parcoursActif = null;
     if (location.hash.startsWith("#demo-")) history.replaceState(null, "", location.pathname + location.search);
@@ -552,10 +623,163 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     }
   }
 
+  /* Visite guidée interactive (bouton « Comment ça fonctionne ? »)
+     Chaque étape met en lumière un vrai élément de la page ou du lecteur.
+     lieu : "page" (lecteur fermé), "lecteur" (une démo ouverte), "lecteur-parcours"
+     clic : true = l'étape avance quand on clique sur l'élément mis en lumière.
+     titreMobile : titre utilisé sur petit écran (le lecteur y est empilé).
+     Modifiez les textes ici. */
+  const demoVisite = () => (demos.find(x => idArcade(x.arcade)) || demos[0] || {}).id;
+  const VISITE = [
+    { lieu: "page", titre: "Bienvenue dans l'espace démo GLPI",
+      texte: "Ici, vous découvrez GLPI en le manipulant, sans compte ni installation. Suivez cette courte visite : on vous montre où cliquer." },
+    { lieu: "page", cible: ".outils", titre: "Trouvez une démo",
+      texte: "Filtrez les démos par thème avec ces boutons, ou tapez un mot dans la recherche, par exemple « ticket »." },
+    { lieu: "page", cible: () => document.querySelector('.tuile[data-id="' + demoVisite() + '"]') || document.querySelector(".tuile"), clic: true,
+      titre: "Lancez une démo", texte: "Chaque tuile est une démo. Cliquez sur celle-ci pour l'ouvrir." },
+    { lieu: "lecteur", cible: "#cadre", titre: "À gauche, la démo", titreMobile: "En haut, la démo",
+      texte: "La démo reproduit l'écran de GLPI. Cliquez sur les points lumineux qui clignotent pour avancer, étape par étape." },
+    { lieu: "lecteur", cible: "#btnPleinEcran", titre: "Mettez la démo en plein écran",
+      texte: "Cliquez ici pour agrandir la démo à tout l'écran. Pour revenir, appuyez sur <kbd>Échap</kbd> ou cliquez à nouveau sur ce bouton." },
+    { lieu: "lecteur", cible: ".panneau", titre: "À droite, les infos de la démo", titreMobile: "Sous la démo, ses infos",
+      texte: "Un résumé, ce que vous allez voir, et les mots de GLPI à connaître pour suivre sans vous perdre." },
+    { lieu: "lecteur", cible: ".navigation", titre: "Passez à la démo suivante",
+      texte: "Quand vous avez terminé, enchaînez avec la démo suivante ou revenez à la précédente." },
+    { lieu: "page", cible: ".parcours-grille", titre: "Les parcours",
+      texte: "Un parcours enchaîne plusieurs démos dans un ordre pensé pour votre rôle : découvrir GLPI, organiser le support ou administrer la plateforme." },
+    { lieu: "page", cible: '[data-parcours="0"]', clic: true, titre: "Commencez un parcours",
+      texte: "Cliquez ici pour lancer le parcours « " + esc((C.parcours && C.parcours[0] || {}).titre || "") + " »." },
+    { lieu: "lecteur-parcours", cible: ".lecteur-haut .titres", titre: "Vous êtes dans un parcours",
+      texte: "Le nom du parcours s'affiche ici. Le bouton « Suivante » respecte l'ordre prévu, et vous voyez où vous en êtes sous les boutons." },
+    { lieu: "page", cible: "#termes", titre: "Le vocabulaire de GLPI",
+      texte: "Ticket, entité, profil… Le lexique explique simplement les mots propres à GLPI." },
+    { lieu: "page", cible: ".newsletter-carte", titre: "Restez en contact",
+      texte: "Inscrivez-vous à la newsletter pour être prévenu des nouvelles démos, des nouvelles versions et des webinars." },
+    { lieu: "page", cible: "#btnAide", titre: "Revoir la visite",
+      texte: "Vous pouvez relancer cette visite à tout moment avec ce bouton. Bonne découverte !" }
+  ];
+  const reduit = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let vIndex = -1, vCible = null, vBoucle = 0, vCalque = null;
+  function creerCalque() {
+    vCalque = document.createElement("div");
+    vCalque.className = "visite-calque";
+    vCalque.innerHTML = '<div class="visite-voile"></div><div class="visite-spot" hidden></div>' +
+      '<div class="visite-bulle" role="dialog" aria-live="polite" aria-labelledby="vbTitre">' +
+      '<div class="vb-haut"><span class="vb-num"></span><button type="button" class="vb-quitter">Quitter la visite</button></div>' +
+      '<h3 id="vbTitre"></h3><p class="vb-texte"></p><div class="vb-astuce" hidden><i></i>Cliquez sur l\'élément en surbrillance</div>' +
+      '<div class="vb-bas"><div class="vb-progres"><i></i></div><div class="vb-boutons"><button type="button" class="btn btn-clair vb-prec">←</button><button type="button" class="btn btn-fonce vb-suiv">Suivant →</button></div></div></div>';
+    vCalque.querySelector(".vb-quitter").addEventListener("click", terminerVisite);
+    vCalque.querySelector(".vb-prec").addEventListener("click", () => allerEtape(vIndex - 1));
+    vCalque.querySelector(".vb-suiv").addEventListener("click", () => {
+      const e = VISITE[vIndex];
+      if (e.clic && vCible) vCible.click();   /* fait l'action à la place du visiteur */
+      else if (vIndex === VISITE.length - 1) terminerVisite();
+      else allerEtape(vIndex + 1);
+    });
+  }
+  function preparerLieu(lieu) {
+    if (lieu === "page") { if (dlg.open) fermer(); }
+    else if (lieu === "lecteur") { if (!dlg.open || parcoursActif != null) ouvrir(demoVisite(), null); }
+    else if (lieu === "lecteur-parcours") { if (!dlg.open || parcoursActif !== 0) ouvrir(C.parcours[0].demos.find(id => parId[id]), 0); }
+  }
+  function trouverCible(e) {
+    if (!e.cible) return null;
+    return typeof e.cible === "function" ? e.cible() : document.querySelector(e.cible);
+  }
+  function surClicCible() {
+    const i = vIndex;
+    setTimeout(() => { if (vIndex === i) allerEtape(i + 1); }, 80);
+  }
+  function allerEtape(i) {
+    if (i < 0 || i >= VISITE.length) return;
+    if (vCible) vCible.removeEventListener("click", surClicCible);
+    vIndex = i;
+    const e = VISITE[i];
+    preparerLieu(e.lieu);
+    /* le calque suit la fenêtre ouverte, pour rester au-dessus d'elle */
+    const parent = dlg.open ? dlg : document.body;
+    if (vCalque.parentNode !== parent) parent.appendChild(vCalque);
+    vCible = trouverCible(e);
+    if (vCible) {
+      vCible.scrollIntoView({ block: "center", behavior: reduit ? "auto" : "smooth" });
+      if (e.clic) vCible.addEventListener("click", surClicCible);
+    }
+    const q = sel => vCalque.querySelector(sel);
+    q(".vb-num").textContent = "Étape " + (i + 1) + " sur " + VISITE.length;
+    q("#vbTitre").textContent = (innerWidth <= 900 && e.titreMobile) || e.titre;
+    q(".vb-texte").innerHTML = e.texte;
+    q(".vb-astuce").hidden = !e.clic;
+    q(".vb-progres i").style.width = ((i + 1) / VISITE.length * 100) + "%";
+    q(".vb-prec").hidden = i === 0;
+    q(".vb-suiv").textContent = i === 0 ? "Commencer →" : i === VISITE.length - 1 ? "Terminer" : e.clic ? "Le faire pour moi →" : "Suivant →";
+    q(".visite-voile").style.opacity = vCible ? "0" : "1";
+    q(".visite-spot").hidden = !vCible;
+    q(".vb-suiv").focus({ preventScroll: true });
+  }
+  function placer() {
+    if (vIndex < 0) return;
+    const spot = vCalque.querySelector(".visite-spot"), bulle = vCalque.querySelector(".visite-bulle");
+    const W = innerWidth, H = innerHeight, bw = bulle.offsetWidth, bh = bulle.offsetHeight, m = 12;
+    let top, left;
+    const r = vCible && vCible.isConnected ? vCible.getBoundingClientRect() : null;
+    if (r && r.width) {
+      const pad = 8, t = Math.max(r.top - pad, 4), b = Math.min(r.bottom + pad, H - 4);
+      spot.style.top = t + "px"; spot.style.left = (r.left - pad) + "px";
+      spot.style.width = (r.width + pad * 2) + "px"; spot.style.height = Math.max(b - t, 0) + "px";
+      const cx = r.left + r.width / 2;
+      if (b + 14 + bh < H - m) { top = b + 14; left = cx - bw / 2; }
+      else if (t - 14 - bh > m) { top = t - 14 - bh; left = cx - bw / 2; }
+      else if (r.right + pad + 14 + bw < W - m) { left = r.right + pad + 14; top = r.top + r.height / 2 - bh / 2; }
+      else if (r.left - pad - 14 - bw > m) { left = r.left - pad - 14 - bw; top = r.top + r.height / 2 - bh / 2; }
+      else { left = W - bw - m; top = H - bh - m; }
+    } else { top = (H - bh) / 2; left = (W - bw) / 2; }
+    bulle.style.left = Math.min(Math.max(left, m), W - bw - m) + "px";
+    bulle.style.top = Math.min(Math.max(top, m), H - bh - m) + "px";
+    vBoucle = requestAnimationFrame(placer);
+  }
+  function lancerVisite() {
+    if (!vCalque) creerCalque();
+    allerEtape(0);
+    cancelAnimationFrame(vBoucle); placer();
+  }
+  function terminerVisite() {
+    if (vCible) vCible.removeEventListener("click", surClicCible);
+    cancelAnimationFrame(vBoucle);
+    vIndex = -1; vCible = null;
+    if (vCalque) vCalque.remove();
+    if (location.hash === "#aide") history.replaceState(null, "", location.pathname + location.search);
+  }
+  document.addEventListener("keydown", e => {
+    if (vIndex < 0) return;
+    if (e.key === "Escape") terminerVisite();
+    else if (e.key === "ArrowRight" && !VISITE[vIndex].clic) allerEtape(vIndex + 1);
+    else if (e.key === "ArrowLeft") allerEtape(vIndex - 1);
+  });
+  $("btnAide").addEventListener("click", lancerVisite);
+  $("lienAide").addEventListener("click", lancerVisite);
+
+  /* Attire l'attention sur « Comment ça fonctionne ? » : 3 s après l'arrivée, puis toutes les minutes,
+     jusqu'à ce que le visiteur lance la visite (mémorisé dans son navigateur). */
+  const CLE_VISITE = "glpi-visite-faite";
+  let visiteFaite = false;
+  try { visiteFaite = localStorage.getItem(CLE_VISITE) === "1"; } catch (e) {}
+  const ATTENTION_INTERVALLE = 60000;  /* en millisecondes : 60000 = 1 minute */
+  function secouerAide() {
+    if (visiteFaite || vIndex >= 0 || document.hidden) return;
+    const b = $("btnAide");
+    b.classList.remove("attention"); void b.offsetWidth; b.classList.add("attention");
+    setTimeout(() => b.classList.remove("attention"), 3000);
+  }
+  if (!visiteFaite) { setTimeout(secouerAide, 3000); setInterval(secouerAide, ATTENTION_INTERVALLE); }
+  function noterVisite() { visiteFaite = true; try { localStorage.setItem(CLE_VISITE, "1"); } catch (e) {} }
+  $("btnAide").addEventListener("click", noterVisite);
+  $("lienAide").addEventListener("click", noterVisite);
+
   /* Lien direct : …/index.html#demo-affecter-profil-groupe */
   function routeHash() {
     const h = location.hash;
-    if (h.startsWith("#demo-")) ouvrir(h.slice(6), null);
+    if (h === "#aide") lancerVisite();
+    else if (h.startsWith("#demo-")) ouvrir(h.slice(6), null);
     else if (h.startsWith("#terme-")) { const t = document.querySelector(h); if (t) { t.classList.add("eclaire"); setTimeout(() => t.classList.remove("eclaire"), 2200); } }
   }
   window.addEventListener("hashchange", routeHash);

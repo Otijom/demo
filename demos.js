@@ -117,7 +117,7 @@ window.GLPI_DEMOS = {
       titre: "Ajouter un ordinateur au parc",
       categorie: "parc",
       duree: "2 min",
-      image: "assets/img/ordinateur-ajout.webp",
+      image: "assets/img/ordinateur-ajout.svg",
       resume: "Enregistrez un poste, son utilisateur et ses logiciels pour savoir à tout moment qui utilise quoi.",
       etapes: ["Créer la fiche de l'ordinateur", "L'affecter à un utilisateur", "Consulter ses composants et logiciels"],
       mots: ["Actif"]
@@ -128,7 +128,7 @@ window.GLPI_DEMOS = {
       titre: "Automatiser l'inventaire avec l'agent GLPI",
       categorie: "parc",
       duree: "3 min",
-      image: "assets/img/agent-robot.webp",
+      image: "assets/img/agent-robot.svg",
       resume: "L'agent installé sur les postes remonte tout seul le matériel et les logiciels : fini les tableurs à jour à la main.",
       etapes: ["Ce que remonte l'agent", "Voir un poste inventorié", "Repérer les changements"],
       mots: ["Agent GLPI", "Actif"]
