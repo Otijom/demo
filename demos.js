@@ -91,7 +91,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "formulaires",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/mJ3kIHE9KLVweSMofFEl",
       titre: "Guider les demandes avec un formulaire",
       categorie: "assistance",
       duree: "3 min",
