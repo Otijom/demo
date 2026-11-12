@@ -80,7 +80,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "base-connaissances",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/RCBZMrEG6mMO5I1HK0lW",
       titre: "Partager une procédure dans la base de connaissances",
       categorie: "assistance",
       duree: "2 min",
