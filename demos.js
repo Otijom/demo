@@ -113,7 +113,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "ajouter-ordinateur",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/IAOrl9BokC0iSKanXfer",
       titre: "Ajouter un ordinateur au parc",
       categorie: "parc",
       duree: "2 min",
