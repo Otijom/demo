@@ -102,7 +102,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "sla",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/4lMIB1jaFCbmulTX0QF4",
       titre: "Garantir les délais avec les SLA",
       categorie: "assistance",
       duree: "2 min",
@@ -113,7 +113,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "ajouter-ordinateur",
-      arcade: "https://app.arcade.software/share/IAOrl9BokC0iSKanXfer",
+      arcade: "",
       titre: "Ajouter un ordinateur au parc",
       categorie: "parc",
       duree: "2 min",
@@ -135,7 +135,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "creer-utilisateur",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/IAOrl9BokC0iSKanXfer",
       titre: "Créer un utilisateur",
       categorie: "administration",
       duree: "2 min",
