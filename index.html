@@ -236,6 +236,14 @@ dl.termes { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap
 
 /* ---------- Plein écran du lecteur ---------- */
 .icone-btn[disabled] { opacity: .35; pointer-events: none; }
+/* Plein écran : bouton libellé, mis en avant sans effet lumineux */
+.btn-plein { flex: none; display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px 0 13px; border-radius: 999px; border: 1.5px solid rgba(152,224,255,.55); background: rgba(152,224,255,.12); color: var(--blanc); font-family: var(--font-titre); font-weight: 600; font-size: 14px; white-space: nowrap; transition: background .15s, border-color .15s; }
+.btn-plein:hover { background: rgba(152,224,255,.24); border-color: var(--bleu-clair); }
+.btn-plein svg { width: 18px; height: 18px; color: var(--bleu-clair); }
+.btn-plein[disabled] { opacity: .35; pointer-events: none; }
+@media (max-width: 600px) { .btn-plein .txt { display: none; } .btn-plein { padding: 0 11px; } }
+.lien-plein { display: inline-flex; align-items: center; gap: 6px; margin-left: 10px; padding: 0; border: 0; background: none; font: inherit; font-weight: 600; color: var(--bleu-fonce); text-decoration: underline; text-decoration-color: var(--bleu); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.lien-plein svg { width: 15px; height: 15px; color: var(--bleu); }
 .cadre-arcade:fullscreen { padding-bottom: 0; height: 100%; border-radius: 0; background: #000; }
 .cadre-arcade:-webkit-full-screen { padding-bottom: 0; height: 100%; border-radius: 0; background: #000; }
 
@@ -430,8 +438,9 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       <div class="fil" id="lecteurFil"></div>
       <h2 id="lecteurTitre"></h2>
     </div>
-    <button class="icone-btn" id="btnPleinEcran" type="button" aria-label="Afficher la démo en plein écran" title="Plein écran">
+    <button class="btn-plein" id="btnPleinEcran" type="button" aria-label="Afficher la démo en plein écran" title="Afficher la démo en plein écran (Échap pour revenir)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+      <span class="txt">Plein écran</span>
     </button>
     <button class="icone-btn" id="btnFermer" type="button" aria-label="Fermer la démo">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
@@ -567,7 +576,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     cadre.style.setProperty("--ratio", d.ratio || "56.25%");
     if (aid) {
       cadre.innerHTML = '<iframe src="https://demo.arcade.software/' + aid + '?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="' + esc(d.titre) + '" loading="lazy" allowfullscreen allow="clipboard-write; fullscreen"></iframe>';
-      $("secours").innerHTML = '<span>Cliquez sur les points lumineux pour avancer.</span><a href="https://app.arcade.software/share/' + aid + '" target="_blank" rel="noopener">La démo ne s\'affiche pas ? Ouvrir dans un nouvel onglet ↗</a>';
+      $("secours").innerHTML = '<span>Cliquez sur les points lumineux pour avancer.<button type="button" class="lien-plein" data-plein><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Voir en plein écran</button></span><a href="https://app.arcade.software/share/' + aid + '" target="_blank" rel="noopener">La démo ne s\'affiche pas ? Ouvrir dans un nouvel onglet ↗</a>';
     } else {
       cadre.innerHTML = '<div class="emplacement-vide"><div><img src="' + esc(d.image) + '" alt=""><h3>Démo bientôt disponible</h3><p>Cette démonstration est en cours de préparation. En attendant, découvrez les autres sujets.</p></div></div>';
       $("secours").innerHTML = '<span>Emplacement réservé : renseignez <code>arcade</code> pour « ' + esc(d.id) + ' » dans demos.js.</span>';
@@ -581,7 +590,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     dlg.close();
   }
   /* Plein écran : agrandit le cadre de la démo ; Échap ou le même bouton pour revenir */
-  $("btnPleinEcran").addEventListener("click", () => {
+  function basculerPleinEcran() {
     const cadre = $("cadre");
     const actif = document.fullscreenElement || document.webkitFullscreenElement;
     try {
@@ -592,7 +601,9 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
         if (r && r.catch) r.catch(() => {});
       }
     } catch (e) {}
-  });
+  }
+  $("btnPleinEcran").addEventListener("click", basculerPleinEcran);
+  $("secours").addEventListener("click", e => { if (e.target.closest("[data-plein]")) basculerPleinEcran(); });
   dlg.addEventListener("close", () => {
     $("cadre").innerHTML = ""; courant = null; parcoursActif = null;
     if (location.hash.startsWith("#demo-")) history.replaceState(null, "", location.pathname + location.search);

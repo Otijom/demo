@@ -112,19 +112,19 @@ window.GLPI_DEMOS = {
       mots: ["SLA", "Ticket"]
     },
     {
-      id: "ajouter-ordinateur",
-      arcade: "",
-      titre: "Ajouter un ordinateur au parc",
+      id: "inventaire-reseau",
+      arcade: "https://app.arcade.software/share/dTRpHD3W5zET1I6cBuu9",
+      titre: "Inventorier les matériels réseau avec GLPI Inventory",
       categorie: "parc",
-      duree: "2 min",
-      image: "assets/img/ordinateur-ajout.webp",
-      resume: "Enregistrez un poste, son utilisateur et ses logiciels pour savoir à tout moment qui utilise quoi.",
-      etapes: ["Créer la fiche de l'ordinateur", "L'affecter à un utilisateur", "Consulter ses composants et logiciels"],
-      mots: ["Actif"]
+      duree: "3 min",
+      image: "assets/img/inventaire-reseau.webp",
+      resume: "Le plugin GLPI Inventory repère les équipements présents sur le réseau, puis les interroge en SNMP pour remplir leur fiche automatiquement.",
+      etapes: ["Découvrir les équipements présents sur le réseau", "Lancer l'inventaire SNMP des matériels trouvés", "Consulter la fiche d'un commutateur et de ses ports"],
+      mots: ["Plugin", "SNMP", "Actif"]
     },
     {
       id: "inventaire-automatique",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/fFwpGkVio4s4nDvqvATT",
       titre: "Automatiser l'inventaire avec l'agent GLPI",
       categorie: "parc",
       duree: "3 min",
@@ -157,18 +157,18 @@ window.GLPI_DEMOS = {
     },
     {
       id: "entites",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/xfJPJo6FiPMFBgnInxej",
       titre: "Organiser GLPI en entités",
       categorie: "administration",
       duree: "3 min",
       image: "assets/img/entites.webp",
-      resume: "Séparez vos sites, filiales ou clients : chacun ne voit que ses tickets et son matériel.",
-      etapes: ["Créer une entité", "Y rattacher des utilisateurs", "Passer d'une entité à l'autre"],
-      mots: ["Entité", "Profil"]
+      resume: "Séparez vos sites, filiales ou clients : chacun ne voit que ses tickets et son matériel, sans rien dupliquer.",
+      etapes: ["Créer une entité pour un site", "Passer d'une entité à l'autre", "Donner à un technicien l'accès à son seul site", "Partager un élément avec tous les sites"],
+      mots: ["Entité", "Profil", "Récursivité"]
     },
     {
       id: "tableau-de-bord",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/7mBeyFvMEfGgDKgQOv1Z",
       titre: "Piloter l'activité avec les tableaux de bord",
       categorie: "premiers-pas",
       duree: "2 min",
@@ -184,7 +184,7 @@ window.GLPI_DEMOS = {
     {
       titre: "Je découvre GLPI",
       pour: "Pour avoir une vue d'ensemble en 10 minutes.",
-      demos: ["decouvrir-interface", "creer-ticket", "ajouter-ordinateur", "tableau-de-bord"]
+      demos: ["decouvrir-interface", "creer-ticket", "inventaire-automatique", "tableau-de-bord"]
     },
     {
       titre: "J'organise le support",
@@ -194,20 +194,23 @@ window.GLPI_DEMOS = {
     {
       titre: "J'administre la plateforme",
       pour: "Pour celles et ceux qui paramètrent GLPI.",
-      demos: ["creer-utilisateur", "affecter-profil-groupe", "entites", "inventaire-automatique"]
+      demos: ["creer-utilisateur", "affecter-profil-groupe", "entites", "inventaire-automatique", "inventaire-reseau"]
     }
   ],
 
   /* Petit lexique affiché en bas de page et dans le lecteur. */
   lexique: [
-    { mot: "Actif", def: "Tout élément du parc suivi dans GLPI : ordinateur, écran, téléphone, imprimante, logiciel…" },
+    { mot: "Actif", def: "Tout élément du parc suivi dans GLPI : ordinateur, écran, équipement réseau, imprimante, logiciel…" },
     { mot: "Agent GLPI", def: "Petit programme installé sur les postes, qui envoie automatiquement leur inventaire à GLPI." },
     { mot: "Base de connaissances", def: "Bibliothèque d'articles (procédures, FAQ) pour trouver une réponse sans ouvrir de ticket." },
     { mot: "Entité", def: "Une partie de l'organisation (site, filiale, client) dont les données et les droits sont cloisonnés." },
     { mot: "Formulaire", def: "Page de demande guidée qui pose les bonnes questions et crée le ticket automatiquement." },
     { mot: "Groupe", def: "Un ensemble d'utilisateurs, souvent une équipe ou un service, à qui l'on confie des tickets ou des droits." },
+    { mot: "Plugin", def: "Une extension qui ajoute des fonctions à GLPI, comme GLPI Inventory pour l'inventaire réseau." },
     { mot: "Profil", def: "Le jeu de droits qui définit ce qu'un utilisateur peut voir et faire (Self-Service, Technicien, Super-Admin…)." },
+    { mot: "Récursivité", def: "Une option qui rend un élément ou un droit valable aussi dans toutes les sous-entités, sans le recréer pour chacune." },
     { mot: "SLA", def: "Engagement de délai (prise en charge, résolution) que GLPI applique et surveille sur les tickets." },
+    { mot: "SNMP", def: "Un protocole qui permet d'interroger à distance un équipement réseau (commutateur, imprimante…) pour connaître ses caractéristiques." },
     { mot: "Tableau de bord", def: "Écran de synthèse composé d'indicateurs et de graphiques sur l'activité et le parc." },
     { mot: "Ticket", def: "Une demande ou un incident déclaré par un utilisateur, suivi jusqu'à sa résolution." }
   ],
