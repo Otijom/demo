@@ -215,6 +215,22 @@ window.GLPI_DEMOS = {
     { mot: "Ticket", def: "Une demande ou un incident déclaré par un utilisateur, suivi jusqu'à sa résolution." }
   ],
 
+  /* Bloc « Alors, conquis ? » (avant le pied de page)
+     Deux cartes, chacune avec un bouton et un QR code (pour ouvrir le lien
+     sur un téléphone). Les QR codes sont des images dans assets/qr/ :
+     SI VOUS CHANGEZ UNE ADRESSE, REFAITES LE QR CODE (voir LISEZMOI.md).
+     Pour retirer une carte, videz son « lien ». */
+  conquis: {
+    essai: {
+      lien: "https://myaccount.glpi-network.cloud/register.php",
+      qr: "assets/qr/essai-cloud.svg"
+    },
+    tarifs: {
+      lien: "https://www.glpi-project.org/fr/pricing/",
+      qr: "assets/qr/tarifs.svg"
+    }
+  },
+
   /* Newsletter (MailPoet, site WordPress glpi-project.org)
      iframe : le code « version iFrame » du formulaire MailPoet, collé tel
               quel ENTRE LES DEUX ACCENTS GRAVES ` ` (et non des guillemets,
@@ -223,9 +239,15 @@ window.GLPI_DEMOS = {
               « Placement du formulaire » > « Shortcode et autres ».
      lien   : à défaut d'iFrame, adresse https:// d'une page d'inscription :
               l'encart affiche alors un simple bouton vers cette page.
-     Les deux vides = encart newsletter masqué. */
+     Les deux vides = encart newsletter masqué.
+
+     EN ATTENTE : glpi-project.org refuse pour l'instant d'être affiché dans
+     une autre page (réglage serveur à faire par l'administrateur). Une fois
+     ce réglage fait, recollez ce code entre les accents graves de « iframe » :
+     <iframe width="100%" height="100%" scrolling="no" frameborder="0" src="https://www.glpi-project.org/?mailpoet_form_iframe=1" class="mailpoet_form_iframe" id="mailpoet_form_iframe" vspace="0" tabindex="0" onload="var _this = this; window.addEventListener('message', function(e) {if(e.data.MailPoetIframeHeight){_this.style.height = e.data.MailPoetIframeHeight;}})" marginwidth="0" marginheight="0" hspace="0" allowtransparency="true"></iframe>
+  */
   newsletter: {
-    iframe: `<iframe width="100%" height="100%" scrolling="no" frameborder="0" src="https://www.glpi-project.org/?mailpoet_form_iframe=1" class="mailpoet_form_iframe" id="mailpoet_form_iframe" vspace="0" tabindex="0" onload="var _this = this; window.addEventListener('message', function(e) {if(e.data.MailPoetIframeHeight){_this.style.height = e.data.MailPoetIframeHeight;}})" marginwidth="0" marginheight="0" hspace="0" allowtransparency="true"></iframe>`,
+    iframe: ``,
     lien: ''
   }
 };

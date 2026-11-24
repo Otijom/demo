@@ -13,7 +13,7 @@ Portail statique de démos interactives GLPI (tuiles Arcade), pour un public qui
 
 | Fichier | Rôle |
 |---|---|
-| `demos.js` | **Contenu** : catégories, tuiles (`demos`), parcours, lexique, newsletter. C'est le fichier que l'utilisateur modifie. |
+| `demos.js` | **Contenu** : catégories, tuiles (`demos`), parcours, lexique, `conquis`, newsletter. C'est le fichier que l'utilisateur modifie. |
 | `index.html` | Mise en page, styles (variables CSS en tête de `<style>`) et logique (script en fin de fichier). |
 | `assets/img/` | Illustrations des tuiles, en `.webp`, environ 520 px de côté maximum, moins de 60 Ko. |
 | `assets/brush/` | Coups de pinceau de la charte (`vague-bleu.svg` dans l'en-tête de l'accueil). |
@@ -35,7 +35,8 @@ Portail statique de démos interactives GLPI (tuiles Arcade), pour un public qui
 - **Lecteur** : `<dialog id="lecteur">`, avec l'Arcade en iframe (`demo.arcade.software/<id>?embed…`), bouton « Plein écran » libellé (`#btnPleinEcran`) et lien « Voir en plein écran » sous la démo, panneau d'infos à droite, Précédente / Suivante (qui suivent l'ordre du parcours quand un parcours est lancé).
 - **Visite guidée interactive** : liste `const VISITE` (cible mise en lumière, bulle, étapes « clic » où le visiteur clique lui-même). Lancée par le bouton « Comment ça fonctionne ? » (`#btnAide`), le lien de l'accueil ou `#aide`.
 - **Bouton d'aide animé** : petit mouvement 3 s après l'arrivée puis toutes les minutes (`ATTENTION_INTERVALLE`), arrêté dès que la visite a été lancée une fois (localStorage `glpi-visite-faite`). Respecter `prefers-reduced-motion`.
-- **Newsletter** : formulaire MailPoet en iFrame (`demos.js` → `newsletter.iframe`, code collé entre accents graves ; seule l'adresse `src` est reprise, hauteur ajustée par le message `MailPoetIframeHeight`), ou à défaut bouton vers `newsletter.lien`. Les deux vides = encart, lien du menu et étape de la visite masqués. `newsletter-mailpoet.css` est à coller dans le CSS personnalisé du formulaire MailPoet.
+- **Alors, conquis ?** : section `#conquis` avant le pied de page, deux cartes (essai cloud gratuit 45 jours, tarifs) remplies par `renderConquis()` depuis `demos.js` → `conquis.essai` / `conquis.tarifs` (`lien`, `qr`). QR codes statiques dans `assets/qr/` (SVG bleu foncé, niveau M) : toute adresse modifiée impose de régénérer le QR code et de vérifier qu'il se décode. QR masqué sous 700 px. Lien vide = carte masquée ; les deux vides = section et étape de visite masquées.
+- **Newsletter** : formulaire MailPoet en iFrame (`demos.js` → `newsletter.iframe`, code collé entre accents graves ; seule l'adresse `src` est reprise, hauteur ajustée par le message `MailPoetIframeHeight`), ou à défaut bouton vers `newsletter.lien`. Les deux vides = encart, lien du menu et étape de la visite masqués. `newsletter-mailpoet.css` est à coller dans le CSS personnalisé du formulaire MailPoet. **Actuellement désactivée** (`iframe` vide) : glpi-project.org interdit l'affichage en iFrame (X-Frame-Options / frame-ancestors) ; le code est gardé en commentaire dans `demos.js` en attendant l'administrateur.
 - Pas de suivi de progression (supprimé à la demande : l'espace est en libre accès).
 
 ## Charte GLPI (obligatoire pour tout visuel)

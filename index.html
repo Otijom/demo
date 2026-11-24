@@ -164,6 +164,26 @@ dl.termes { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap
 .terme.eclaire { box-shadow: 0 0 0 3px var(--violet); }
 @media (max-width: 860px) { .lexique-grille { grid-template-columns: 1fr; } .lexique-grille > img { display: none; } dl.termes { grid-template-columns: 1fr; } }
 
+/* ---------- Alors, conquis ? ---------- */
+.conquis-zone { background: var(--bleu-fonce); color: var(--blanc); position: relative; overflow: hidden; }
+.conquis-zone[hidden], .conquis-carte[hidden] { display: none; }
+.conquis-zone .deco-crochet { position: absolute; right: -50px; top: -30px; width: 240px; transform: rotate(180deg); pointer-events: none; }
+.pied { border-top: 1px solid rgba(255, 255, 255, .12); }
+.conquis-entete { position: relative; text-align: center; max-width: 640px; margin: 0 auto 40px; }
+.conquis-entete h2 { color: var(--blanc); font-size: clamp(28px, 3.4vw, 40px); font-weight: 700; margin-bottom: 10px; }
+.conquis-entete p { color: var(--bleu-clair); font-size: 17px; margin: 0; }
+.conquis-cartes { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; max-width: 980px; margin: 0 auto; }
+.conquis-carte { display: grid; grid-template-columns: 1fr 132px; gap: 22px; align-items: center; background: var(--blanc); color: var(--texte); border-radius: var(--rayon); padding: 26px; box-shadow: 0 18px 40px -20px rgba(0, 0, 0, .45); }
+.conquis-carte .badge { display: inline-block; background: var(--jaune); color: var(--bleu-fonce); font-family: var(--font-titre); font-weight: 700; font-size: 13px; letter-spacing: .02em; border-radius: 999px; padding: 4px 12px; margin-bottom: 12px; }
+.conquis-carte .badge.neutre { background: var(--bleu-ciel); }
+.conquis-carte h3 { font-size: 20px; font-weight: 700; margin: 0 0 8px; }
+.conquis-carte p { font-size: 15px; color: var(--texte-doux); margin: 0 0 18px; }
+.conquis-carte .qr { margin: 0; text-align: center; }
+.conquis-carte .qr img { display: block; width: 132px; height: 132px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--gris); }
+.conquis-carte .qr figcaption { margin-top: 6px; font-size: 12px; color: var(--texte-doux); }
+/* Sur téléphone, le QR code n'a pas d'intérêt : on garde le bouton */
+@media (max-width: 700px) { .conquis-zone .deco-crochet { display: none; } .conquis-cartes { grid-template-columns: 1fr; } .conquis-carte { grid-template-columns: 1fr; } .conquis-carte .qr { display: none; } }
+
 /* ---------- Newsletter ---------- */
 .newsletter-zone { background: var(--bleu-ciel); }
 .newsletter { display: grid; grid-template-columns: 1fr minmax(320px, 520px); gap: 48px; align-items: center; }
@@ -393,6 +413,35 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       </div>
     </div>
   </section>
+  <section class="section conquis-zone" id="conquis" hidden>
+    <img class="deco-crochet" src="assets/brush/crochet-bleu.svg" alt="">
+    <div class="wrap">
+      <div class="conquis-entete">
+        <h2>Alors, conquis ?</h2>
+        <p>Passez de la démo à la pratique : testez GLPI sur votre propre instance, ou découvrez les offres pour votre organisation.</p>
+      </div>
+      <div class="conquis-cartes">
+        <article class="conquis-carte" id="conquisEssai" hidden>
+          <div>
+            <span class="badge">Gratuit pendant 45 jours</span>
+            <h3>Essayez GLPI dans le cloud</h3>
+            <p>Créez votre propre instance GLPI hébergée et testez-la avec vos données, sans rien installer.</p>
+            <a class="btn btn-jaune" target="_blank" rel="noopener">Démarrer l'essai gratuit ↗</a>
+          </div>
+          <figure class="qr"><img alt="QR code vers l'inscription à l'essai gratuit GLPI Cloud" width="132" height="132"><figcaption>Scannez pour ouvrir sur mobile</figcaption></figure>
+        </article>
+        <article class="conquis-carte" id="conquisTarifs" hidden>
+          <div>
+            <span class="badge neutre">Offres GLPI Network</span>
+            <h3>Choisissez votre offre</h3>
+            <p>Comparez les offres GLPI Network et trouvez celle qui correspond à votre organisation.</p>
+            <a class="btn btn-fonce" target="_blank" rel="noopener">Voir les tarifs ↗</a>
+          </div>
+          <figure class="qr"><img alt="QR code vers la page des tarifs GLPI" width="132" height="132"><figcaption>Scannez pour ouvrir sur mobile</figcaption></figure>
+        </article>
+      </div>
+    </div>
+  </section>
   <section class="section newsletter-zone" id="newsletter" hidden>
     <div class="wrap newsletter">
       <div class="newsletter-texte">
@@ -617,6 +666,22 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
   /* Newsletter : formulaire MailPoet en iFrame (seule son adresse src est reprise : le code collé
      n'est jamais exécuté), ou à défaut un bouton vers une page d'inscription. Rien de configuré :
      l'encart, le lien du menu et l'étape de la visite sont masqués. */
+  function renderConquis() {
+    const cq = C.conquis || {};
+    let une = false;
+    [["conquisEssai", cq.essai], ["conquisTarifs", cq.tarifs]].forEach(([id, c]) => {
+      const carte = $(id), lien = String((c && c.lien) || "").trim();
+      const ok = /^https:\/\//.test(lien);
+      carte.hidden = !ok;
+      if (!ok) return;
+      une = true;
+      carte.querySelector(".btn").href = lien;
+      const fig = carte.querySelector(".qr");
+      if (c.qr) fig.querySelector("img").src = c.qr; else fig.remove();
+    });
+    $("conquis").hidden = !une;
+    if (!une) { const i = VISITE.findIndex(e => e.cible === ".conquis-cartes"); if (i >= 0) VISITE.splice(i, 1); }
+  }
   function renderNewsletter() {
     const nl = C.newsletter || {};
     const brut = String(nl.iframe || "").trim();
@@ -687,6 +752,8 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       texte: "Le nom du parcours s'affiche ici. Le bouton « Suivante » respecte l'ordre prévu, et vous voyez où vous en êtes sous les boutons." },
     { lieu: "page", cible: "#termes", titre: "Le vocabulaire de GLPI",
       texte: "Ticket, entité, profil… Le lexique explique simplement les mots propres à GLPI." },
+    { lieu: "page", cible: ".conquis-cartes", titre: "Envie d'aller plus loin ?",
+      texte: "Testez GLPI gratuitement pendant 45 jours sur votre propre instance cloud, ou consultez les offres. Sur ordinateur, scannez le QR code pour ouvrir le lien sur votre téléphone." },
     { lieu: "page", cible: ".newsletter-carte", titre: "Restez en contact",
       texte: "Inscrivez-vous à la newsletter pour être prévenu des nouvelles démos, des nouvelles versions et des webinars." },
     { lieu: "page", cible: "#btnAide", titre: "Revoir la visite",
@@ -819,7 +886,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
   window.addEventListener("hashchange", routeHash);
 
   $("nbDemos").textContent = demos.length;
-  renderPuces(); renderLexique(); renderTuiles(); renderParcours(); renderNewsletter(); routeHash();
+  renderPuces(); renderLexique(); renderTuiles(); renderParcours(); renderConquis(); renderNewsletter(); routeHash();
 })();
 </script>
 </body>

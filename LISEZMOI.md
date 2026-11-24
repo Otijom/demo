@@ -9,6 +9,7 @@ index.html          la page (mise en page, styles, fonctionnement) : rien à mod
 demos.js            LA LISTE DES DÉMOS : le seul fichier à modifier
 assets/img/         illustrations des tuiles (issues du kit GLPI)
 assets/brush/       coups de pinceau de la charte
+assets/qr/          QR codes du bloc « Alors, conquis ? »
 assets/logo-*.svg   logos GLPI (bleu et blanc)
 newsletter-mailpoet.css   style à coller dans MailPoet pour habiller le formulaire newsletter
 ```
@@ -37,7 +38,18 @@ newsletter-mailpoet.css   style à coller dans MailPoet pour habiller le formula
 - **Lexique** : les `mots` d'une démo doivent exister dans `lexique` pour s'afficher dans le lecteur.
 - **Format de l'Arcade** : si une démo apparaît avec des bandes, ajoutez `ratio: "XX%"` en reprenant la valeur du code d'intégration Arcade (`padding-bottom: calc(XX% + 41px)`).
 
+## Bloc « Alors, conquis ? »
+
+Juste avant le pied de page, deux cartes invitent à passer à l'action : l'essai gratuit de 45 jours sur une instance GLPI Cloud, et la page des tarifs. Chaque carte a un bouton et un QR code pour ouvrir le lien sur un téléphone (le QR code est masqué sur mobile, où le bouton suffit).
+
+- Les adresses se changent dans `demos.js`, rubrique `conquis` (`essai.lien` et `tarifs.lien`).
+- **Si vous changez une adresse, refaites le QR code correspondant**, sinon il continuera de pointer vers l'ancienne. N'importe quel générateur de QR code fait l'affaire : exportez en SVG (ou PNG), déposez le fichier dans `assets/qr/` et indiquez son chemin dans `qr`. Scannez-le avec un téléphone pour vérifier avant de publier.
+- Pour retirer une carte, videz son `lien`. Les deux vides : le bloc et son étape dans la visite guidée sont masqués.
+- Les textes des cartes se modifient dans `index.html` (cherchez « Alors, conquis »).
+
 ## Newsletter (MailPoet)
+
+**Actuellement masquée** : glpi-project.org refuse pour l'instant d'être affiché dans une autre page. Le code iFrame est conservé dans `demos.js`, en commentaire juste au-dessus de `newsletter` : une fois le réglage fait par l'administrateur (voir la fin de cette section), recollez-le entre les accents graves de `iframe`.
 
 Le formulaire MailPoet du site WordPress s'affiche dans l'encart newsletter, en version iFrame. Les inscrits arrivent directement dans MailPoet.
 
@@ -52,7 +64,7 @@ Si le formulaire reste vide une fois en ligne, le site WordPress refuse peut-êt
 
 ## Visite guidée « Comment ça fonctionne ? »
 
-Le bouton en haut à droite (et le lien sous les boutons de l'accueil) lance une visite guidée interactive en 12 étapes (13 avec la newsletter). Chaque étape met en lumière le vrai élément de la page ou du lecteur : filtres, tuile à cliquer, démo, bouton plein écran, infos de la démo, parcours, lexique, newsletter si elle est activée.
+Le bouton en haut à droite (et le lien sous les boutons de l'accueil) lance une visite guidée interactive en 13 étapes (14 avec la newsletter). Chaque étape met en lumière le vrai élément de la page ou du lecteur : filtres, tuile à cliquer, démo, bouton plein écran, infos de la démo, parcours, lexique, bloc « Alors, conquis ? », newsletter si elle est activée.
 Aux étapes « Lancez une démo » et « Commencez un parcours », le visiteur clique lui-même sur l'élément (ou sur « Le faire pour moi »).
 Les textes se modifient dans `index.html`, dans la liste `VISITE` (cherchez « Visite guidée interactive »).
 Lien direct pour lancer la visite : `…/glpi-demos/#aide`.
