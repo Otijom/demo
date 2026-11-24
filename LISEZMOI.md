@@ -40,7 +40,7 @@ newsletter-mailpoet.css   style à coller dans MailPoet pour habiller le formula
 
 ## Bloc « Alors, conquis ? »
 
-Juste avant le pied de page, deux cartes invitent à passer à l'action : l'essai gratuit de 45 jours sur une instance GLPI Cloud, et la page des tarifs. Chaque carte a un bouton et un QR code pour ouvrir le lien sur un téléphone (le QR code est masqué sur mobile, où le bouton suffit).
+Juste avant le pied de page, deux cartes invitent à passer à l'action : l'essai gratuit de 45 jours sur une instance GLPI Cloud, et la page des tarifs. Sur ordinateur, chaque carte n'affiche qu'un QR code, sans bouton : le visiteur scanne avec son téléphone et l'écran ne quitte jamais l'espace démo (utile sur un stand). Sur téléphone, c'est l'inverse : le QR code est masqué et un bouton ouvre le lien.
 
 - Les adresses se changent dans `demos.js`, rubrique `conquis` (`essai.lien` et `tarifs.lien`).
 - **Si vous changez une adresse, refaites le QR code correspondant**, sinon il continuera de pointer vers l'ancienne. N'importe quel générateur de QR code fait l'affaire : exportez en SVG (ou PNG), déposez le fichier dans `assets/qr/` et indiquez son chemin dans `qr`. Scannez-le avec un téléphone pour vérifier avant de publier.
@@ -58,9 +58,9 @@ Le formulaire MailPoet du site WordPress s'affiche dans l'encart newsletter, en 
 3. Le cadre prend automatiquement la hauteur du formulaire.
 4. Pour l'habiller aux couleurs du portail, collez le contenu de `newsletter-mailpoet.css` dans le « CSS personnalisé » du formulaire MailPoet.
 
-Sans iFrame, `newsletter.lien` peut recevoir l'adresse d'une page d'inscription : l'encart affiche alors un simple bouton. Les deux champs vides : l'encart, son lien dans le menu et l'étape de la visite guidée sont masqués.
+Sans iFrame, `newsletter.lien` peut recevoir l'adresse d'une page d'inscription : l'encart affiche alors un simple bouton. Attention, ce bouton ouvre le site glpi-project.org : à éviter sur l'écran du stand. Les deux champs vides : l'encart, son lien dans le menu et l'étape de la visite guidée sont masqués.
 
-Si le formulaire reste vide une fois en ligne, le site WordPress refuse peut-être l'affichage dans un autre site (réglage de sécurité X-Frame-Options ou frame-ancestors) : l'administrateur du WordPress doit autoriser l'adresse du portail. Un lien de secours sous le cadre permet de s'inscrire quand même.
+Si le formulaire reste vide une fois en ligne, le site WordPress refuse peut-être l'affichage dans un autre site (réglage de sécurité X-Frame-Options ou frame-ancestors) : l'administrateur du WordPress doit autoriser l'adresse du portail.
 
 ## Visite guidée « Comment ça fonctionne ? »
 
@@ -84,3 +84,4 @@ Le fichier s'ouvre aussi en double-cliquant sur `index.html`, mais certains navi
 ## Bon à savoir
 
 - Les polices Poppins (titres) et Open Sans (textes) sont chargées depuis Google Fonts.
+- L'espace démo sert aussi d'écran de stand : il ne contient volontairement aucun lien qui fasse quitter la page (pied de page sans lien externe, pas de lien « ouvrir dans un nouvel onglet » sous les démos, QR codes sans bouton sur ordinateur).

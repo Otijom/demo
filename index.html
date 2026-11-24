@@ -173,16 +173,18 @@ dl.termes { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap
 .conquis-entete h2 { color: var(--blanc); font-size: clamp(28px, 3.4vw, 40px); font-weight: 700; margin-bottom: 10px; }
 .conquis-entete p { color: var(--bleu-clair); font-size: 17px; margin: 0; }
 .conquis-cartes { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; max-width: 980px; margin: 0 auto; }
-.conquis-carte { display: grid; grid-template-columns: 1fr 132px; gap: 22px; align-items: center; background: var(--blanc); color: var(--texte); border-radius: var(--rayon); padding: 26px; box-shadow: 0 18px 40px -20px rgba(0, 0, 0, .45); }
+.conquis-carte { display: grid; grid-template-columns: 1fr 168px; gap: 22px; align-items: center; background: var(--blanc); color: var(--texte); border-radius: var(--rayon); padding: 26px; box-shadow: 0 18px 40px -20px rgba(0, 0, 0, .45); }
 .conquis-carte .badge { display: inline-block; background: var(--jaune); color: var(--bleu-fonce); font-family: var(--font-titre); font-weight: 700; font-size: 13px; letter-spacing: .02em; border-radius: 999px; padding: 4px 12px; margin-bottom: 12px; }
 .conquis-carte .badge.neutre { background: var(--bleu-ciel); }
 .conquis-carte h3 { font-size: 20px; font-weight: 700; margin: 0 0 8px; }
-.conquis-carte p { font-size: 15px; color: var(--texte-doux); margin: 0 0 18px; }
+.conquis-carte p { font-size: 15px; color: var(--texte-doux); margin: 0; }
+/* Pas de bouton sur ordinateur : on ne quitte jamais l'espace démo (écran de stand), on scanne le QR code */
+.conquis-carte .btn { display: none; }
 .conquis-carte .qr { margin: 0; text-align: center; }
-.conquis-carte .qr img { display: block; width: 132px; height: 132px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--gris); }
-.conquis-carte .qr figcaption { margin-top: 6px; font-size: 12px; color: var(--texte-doux); }
-/* Sur téléphone, le QR code n'a pas d'intérêt : on garde le bouton */
-@media (max-width: 700px) { .conquis-zone .deco-crochet { display: none; } .conquis-cartes { grid-template-columns: 1fr; } .conquis-carte { grid-template-columns: 1fr; } .conquis-carte .qr { display: none; } }
+.conquis-carte .qr img { display: block; width: 168px; height: 168px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--gris); }
+.conquis-carte .qr figcaption { margin-top: 8px; font-family: var(--font-titre); font-weight: 600; font-size: 13px; color: var(--bleu-fonce); }
+/* Sur téléphone, le QR code n'a pas d'intérêt : on affiche le bouton à la place */
+@media (max-width: 700px) { .conquis-zone .deco-crochet { display: none; } .conquis-cartes { grid-template-columns: 1fr; } .conquis-carte { grid-template-columns: 1fr; } .conquis-carte .qr { display: none; } .conquis-carte p { margin-bottom: 18px; } .conquis-carte .btn { display: inline-flex; } }
 
 /* ---------- Newsletter ---------- */
 .newsletter-zone { background: var(--bleu-ciel); }
@@ -199,8 +201,6 @@ dl.termes { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap
 .newsletter-carte .sous { font-size: 14px; color: var(--texte-doux); margin-bottom: 12px; }
 .newsletter-carte iframe { display: block; width: 100%; height: 380px; border: 0; background: transparent; transition: height .2s; }
 .newsletter-carte .btn[hidden], .newsletter-zone[hidden], .nav a[hidden] { display: none; }
-.newsletter-carte .nl-bas { margin: 10px 0 0; font-size: 13px; color: var(--texte-doux); }
-.newsletter-carte .nl-bas a { color: var(--bleu-fonce); font-weight: 600; }
 @media (max-width: 900px) { .newsletter { grid-template-columns: 1fr; } .newsletter-texte { grid-template-columns: 1fr; } .newsletter-texte img { display: none; } }
 
 /* ---------- Bouton d'aide (en-tête) ---------- */
@@ -418,7 +418,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     <div class="wrap">
       <div class="conquis-entete">
         <h2>Alors, conquis ?</h2>
-        <p>Passez de la démo à la pratique : testez GLPI sur votre propre instance, ou découvrez les offres pour votre organisation.</p>
+        <p>Passez de la démo à la pratique : scannez un QR code pour tester GLPI sur votre propre instance, ou découvrir les offres pour votre organisation.</p>
       </div>
       <div class="conquis-cartes">
         <article class="conquis-carte" id="conquisEssai" hidden>
@@ -428,7 +428,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
             <p>Créez votre propre instance GLPI hébergée et testez-la avec vos données, sans rien installer.</p>
             <a class="btn btn-jaune" target="_blank" rel="noopener">Démarrer l'essai gratuit ↗</a>
           </div>
-          <figure class="qr"><img alt="QR code vers l'inscription à l'essai gratuit GLPI Cloud" width="132" height="132"><figcaption>Scannez pour ouvrir sur mobile</figcaption></figure>
+          <figure class="qr"><img alt="QR code vers l'inscription à l'essai gratuit GLPI Cloud" width="168" height="168"><figcaption>Scannez avec votre téléphone</figcaption></figure>
         </article>
         <article class="conquis-carte" id="conquisTarifs" hidden>
           <div>
@@ -437,7 +437,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
             <p>Comparez les offres GLPI Network et trouvez celle qui correspond à votre organisation.</p>
             <a class="btn btn-fonce" target="_blank" rel="noopener">Voir les tarifs ↗</a>
           </div>
-          <figure class="qr"><img alt="QR code vers la page des tarifs GLPI" width="132" height="132"><figcaption>Scannez pour ouvrir sur mobile</figcaption></figure>
+          <figure class="qr"><img alt="QR code vers la page des tarifs GLPI" width="168" height="168"><figcaption>Scannez avec votre téléphone</figcaption></figure>
         </article>
       </div>
     </div>
@@ -471,7 +471,6 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     <img src="assets/logo-glpi-blanc.svg" alt="GLPI">
     <p>GLPI, développé par Teclib'</p>
     <div class="liens">
-      <a href="https://glpi-project.org" target="_blank" rel="noopener">glpi-project.org</a>
       <a href="#demos">Revoir les démos</a>
     </div>
   </div>
@@ -621,7 +620,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     cadre.style.setProperty("--ratio", d.ratio || "56.25%");
     if (aid) {
       cadre.innerHTML = '<iframe src="https://demo.arcade.software/' + aid + '?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="' + esc(d.titre) + '" loading="lazy" allowfullscreen allow="clipboard-write; fullscreen"></iframe>';
-      $("secours").innerHTML = '<span>Cliquez sur les points lumineux pour avancer.<button type="button" class="lien-plein" data-plein><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Voir en plein écran</button></span><a href="https://app.arcade.software/share/' + aid + '" target="_blank" rel="noopener">La démo ne s\'affiche pas ? Ouvrir dans un nouvel onglet ↗</a>';
+      $("secours").innerHTML = '<span>Cliquez sur les points lumineux pour avancer.<button type="button" class="lien-plein" data-plein><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Voir en plein écran</button></span>';
     } else {
       cadre.innerHTML = '<div class="emplacement-vide"><div><img src="' + esc(d.image) + '" alt=""><h3>Démo bientôt disponible</h3><p>Cette démonstration est en cours de préparation. En attendant, découvrez les autres sujets.</p></div></div>';
       $("secours").innerHTML = '<span>Emplacement réservé : renseignez <code>arcade</code> pour « ' + esc(d.id) + ' » dans demos.js.</span>';
@@ -706,12 +705,6 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
         const h = e.data.MailPoetIframeHeight;
         f.style.height = typeof h === "number" ? h + "px" : String(h);
       });
-      /* Secours si le formulaire ne s'affiche pas (site qui refuse l'intégration, bloqueur…) */
-      const bas = document.createElement("p");
-      bas.className = "nl-bas";
-      bas.innerHTML = 'Le formulaire ne s’affiche pas ? <a href="' + src.split("?")[0] + '" target="_blank" rel="noopener">S’inscrire sur glpi-project.org ↗</a>';
-      if (avecLien) bas.querySelector("a").href = lien;
-      $("nlFormulaire").appendChild(bas);
     } else if (avecLien) {
       $("nlLien").href = lien;
       $("nlLien").hidden = false;
@@ -753,7 +746,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     { lieu: "page", cible: "#termes", titre: "Le vocabulaire de GLPI",
       texte: "Ticket, entité, profil… Le lexique explique simplement les mots propres à GLPI." },
     { lieu: "page", cible: ".conquis-cartes", titre: "Envie d'aller plus loin ?",
-      texte: "Testez GLPI gratuitement pendant 45 jours sur votre propre instance cloud, ou consultez les offres. Sur ordinateur, scannez le QR code pour ouvrir le lien sur votre téléphone." },
+      texte: "Testez GLPI gratuitement pendant 45 jours sur votre propre instance cloud, ou découvrez les offres. Scannez le QR code avec votre téléphone : la page s'ouvre directement dessus." },
     { lieu: "page", cible: ".newsletter-carte", titre: "Restez en contact",
       texte: "Inscrivez-vous à la newsletter pour être prévenu des nouvelles démos, des nouvelles versions et des webinars." },
     { lieu: "page", cible: "#btnAide", titre: "Revoir la visite",
