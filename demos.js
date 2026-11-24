@@ -113,7 +113,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "inventaire-reseau",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/dTRpHD3W5zET1I6cBuu9",
       titre: "Inventorier les matériels réseau avec GLPI Inventory",
       categorie: "parc",
       duree: "3 min",
@@ -157,7 +157,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "entites",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/xfJPJo6FiPMFBgnInxej",
       titre: "Organiser GLPI en entités",
       categorie: "administration",
       duree: "3 min",
@@ -168,7 +168,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "tableau-de-bord",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/7mBeyFvMEfGgDKgQOv1Z",
       titre: "Piloter l'activité avec les tableaux de bord",
       categorie: "premiers-pas",
       duree: "2 min",
