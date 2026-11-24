@@ -166,7 +166,7 @@ dl.termes { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap
 
 /* ---------- Newsletter ---------- */
 .newsletter-zone { background: var(--bleu-ciel); }
-.newsletter { display: grid; grid-template-columns: 1fr minmax(320px, 460px); gap: 48px; align-items: center; }
+.newsletter { display: grid; grid-template-columns: 1fr minmax(320px, 520px); gap: 48px; align-items: center; }
 .newsletter-texte { display: grid; grid-template-columns: 170px 1fr; gap: 28px; align-items: center; }
 .newsletter-texte img { width: 170px; }
 .newsletter h2 { font-size: clamp(26px, 3vw, 34px); font-weight: 700; margin-bottom: 10px; }
@@ -177,15 +177,10 @@ dl.termes { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap
 .newsletter-carte { background: var(--blanc); border-radius: var(--rayon); box-shadow: var(--ombre); padding: 26px 26px 18px; }
 .newsletter-carte h3 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
 .newsletter-carte .sous { font-size: 14px; color: var(--texte-doux); margin-bottom: 12px; }
-.newsletter-carte iframe { display: block; width: 100%; border: 0; background: transparent; }
-.nl-vide { border: 2px dashed #B8BED6; border-radius: 14px; padding: 18px; display: grid; gap: 10px; }
-.nl-vide .champ { height: 42px; border-radius: 10px; background: var(--beige); display: flex; align-items: center; padding: 0 14px; font-size: 14px; color: #8A92B2; }
-.nl-vide .ligne { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.nl-vide .case { display: flex; gap: 10px; align-items: center; font-size: 14px; color: #8A92B2; }
-.nl-vide .case i { width: 18px; height: 18px; border-radius: 4px; border: 2px solid #B8BED6; flex: none; }
-.nl-vide .bouton { height: 44px; border-radius: 999px; background: var(--gris); }
-.nl-vide p { font-size: 13px; color: var(--texte-doux); text-align: center; }
-.nl-vide code { font-size: 12.5px; background: var(--bleu-ciel); padding: 1px 5px; border-radius: 5px; }
+.newsletter-carte iframe { display: block; width: 100%; height: 380px; border: 0; background: transparent; transition: height .2s; }
+.newsletter-carte .btn[hidden], .newsletter-zone[hidden], .nav a[hidden] { display: none; }
+.newsletter-carte .nl-bas { margin: 10px 0 0; font-size: 13px; color: var(--texte-doux); }
+.newsletter-carte .nl-bas a { color: var(--bleu-fonce); font-weight: 600; }
 @media (max-width: 900px) { .newsletter { grid-template-columns: 1fr; } .newsletter-texte { grid-template-columns: 1fr; } .newsletter-texte img { display: none; } }
 
 /* ---------- Bouton d'aide (en-tête) ---------- */
@@ -309,7 +304,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       <a href="#demos">Les démos</a>
       <a href="#parcours">Parcours</a>
       <a href="#lexique">Lexique</a>
-      <a href="#newsletter">Newsletter</a>
+      <a href="#newsletter" id="navNewsletter">Newsletter</a>
       <button class="btn-aide" id="btnAide" type="button" aria-haspopup="dialog"><span class="rond" aria-hidden="true">?</span><span class="txt">Comment ça fonctionne ?</span></button>
     </nav>
   </div>
@@ -398,7 +393,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       </div>
     </div>
   </section>
-  <section class="section newsletter-zone" id="newsletter">
+  <section class="section newsletter-zone" id="newsletter" hidden>
     <div class="wrap newsletter">
       <div class="newsletter-texte">
         <img src="assets/img/newsletter.webp" alt="">
@@ -414,8 +409,9 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       </div>
       <div class="newsletter-carte">
         <h3>S'abonner à la newsletter</h3>
-        <p class="sous">Désinscription possible à tout moment.</p>
+        <p class="sous" id="nlSous">Désinscription possible à tout moment.</p>
         <div id="nlFormulaire"></div>
+        <a class="btn btn-fonce" id="nlLien" href="#" target="_blank" rel="noopener" hidden>S'inscrire à la newsletter ↗</a>
       </div>
     </div>
   </section>
@@ -618,22 +614,46 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     if (d) ouvrir(d.id, null);
   });
 
-  /* Newsletter (formulaire MailPoet en iFrame) */
+  /* Newsletter : formulaire MailPoet en iFrame (seule son adresse src est reprise : le code collé
+     n'est jamais exécuté), ou à défaut un bouton vers une page d'inscription. Rien de configuré :
+     l'encart, le lien du menu et l'étape de la visite sont masqués. */
   function renderNewsletter() {
     const nl = C.newsletter || {};
     const brut = String(nl.iframe || "").trim();
     const m = brut.match(/src=["']([^"']+)["']/i);
-    const url = (m ? m[1] : brut).replace(/&amp;/g, "&");
-    const zone = $("nlFormulaire");
-    if (/^https:\/\//.test(url)) {
+    const src = (m ? m[1] : brut).replace(/&amp;/g, "&");
+    const lien = String(nl.lien || "").trim();
+    const avecIframe = /^https:\/\//.test(src), avecLien = /^https:\/\//.test(lien);
+    $("newsletter").hidden = !(avecIframe || avecLien);
+    $("navNewsletter").hidden = !(avecIframe || avecLien);
+    if (avecIframe) {
       const f = document.createElement("iframe");
-      f.src = url;
+      f.src = src;
       f.title = "Formulaire d'inscription à la newsletter GLPI";
+      f.setAttribute("scrolling", "no");
       f.loading = "lazy";
-      f.style.height = (parseInt(nl.hauteur, 10) || 520) + "px";
-      zone.replaceChildren(f);
+      $("nlFormulaire").replaceChildren(f);
+      /* MailPoet envoie la hauteur de son formulaire : le cadre s'y ajuste, sans barre de défilement */
+      let origine = "";
+      try { origine = new URL(src).origin; } catch (e) {}
+      window.addEventListener("message", e => {
+        if (e.origin !== origine || !e.data || !e.data.MailPoetIframeHeight) return;
+        const h = e.data.MailPoetIframeHeight;
+        f.style.height = typeof h === "number" ? h + "px" : String(h);
+      });
+      /* Secours si le formulaire ne s'affiche pas (site qui refuse l'intégration, bloqueur…) */
+      const bas = document.createElement("p");
+      bas.className = "nl-bas";
+      bas.innerHTML = 'Le formulaire ne s’affiche pas ? <a href="' + src.split("?")[0] + '" target="_blank" rel="noopener">S’inscrire sur glpi-project.org ↗</a>';
+      if (avecLien) bas.querySelector("a").href = lien;
+      $("nlFormulaire").appendChild(bas);
+    } else if (avecLien) {
+      $("nlLien").href = lien;
+      $("nlLien").hidden = false;
+      $("nlSous").textContent = "L’inscription se fait sur le site officiel de GLPI. Désinscription possible à tout moment.";
     } else {
-      zone.innerHTML = '<div class="nl-vide" aria-hidden="true"><div class="ligne"><span class="champ">Prénom</span><span class="champ">Nom</span></div><span class="champ">Adresse e-mail</span><span class="case"><i></i>Vous êtes déjà client ?</span><span class="bouton"></span><p>Emplacement du formulaire MailPoet : renseignez <code>newsletter.iframe</code> dans demos.js.</p></div>';
+      const i = VISITE.findIndex(e => e.cible === ".newsletter-carte");
+      if (i >= 0) VISITE.splice(i, 1);
     }
   }
 

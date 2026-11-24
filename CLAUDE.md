@@ -18,7 +18,6 @@ Portail statique de démos interactives GLPI (tuiles Arcade), pour un public qui
 | `assets/img/` | Illustrations des tuiles, en `.webp`, environ 520 px de côté maximum, moins de 60 Ko. |
 | `assets/brush/` | Coups de pinceau de la charte (`vague-bleu.svg` dans l'en-tête de l'accueil). |
 | `assets/logo-glpi*.svg`, `favicon.*`, `apple-touch-icon.png` | Logos et icônes. La favicon (carré jaune, triangle lecture bleu foncé) est volontairement différente du logo GLPI. |
-| `newsletter-mailpoet.css` | CSS à coller dans MailPoet (WordPress), pas utilisé par la page. |
 | `LISEZMOI.md` | Mode d'emploi pour l'utilisateur. À tenir à jour si le fonctionnement change. |
 
 ## Contenu (`demos.js`)
@@ -36,7 +35,7 @@ Portail statique de démos interactives GLPI (tuiles Arcade), pour un public qui
 - **Lecteur** : `<dialog id="lecteur">`, avec l'Arcade en iframe (`demo.arcade.software/<id>?embed…`), bouton « Plein écran » libellé (`#btnPleinEcran`) et lien « Voir en plein écran » sous la démo, panneau d'infos à droite, Précédente / Suivante (qui suivent l'ordre du parcours quand un parcours est lancé).
 - **Visite guidée interactive** : liste `const VISITE` (cible mise en lumière, bulle, étapes « clic » où le visiteur clique lui-même). Lancée par le bouton « Comment ça fonctionne ? » (`#btnAide`), le lien de l'accueil ou `#aide`.
 - **Bouton d'aide animé** : petit mouvement 3 s après l'arrivée puis toutes les minutes (`ATTENTION_INTERVALLE`), arrêté dès que la visite a été lancée une fois (localStorage `glpi-visite-faite`). Respecter `prefers-reduced-motion`.
-- **Newsletter** : iFrame MailPoet configurée dans `demos.js` → `newsletter.iframe` et `hauteur`.
+- **Newsletter** : formulaire MailPoet en iFrame (`demos.js` → `newsletter.iframe`, code collé entre accents graves ; seule l'adresse `src` est reprise, hauteur ajustée par le message `MailPoetIframeHeight`), ou à défaut bouton vers `newsletter.lien`. Les deux vides = encart, lien du menu et étape de la visite masqués. `newsletter-mailpoet.css` est à coller dans le CSS personnalisé du formulaire MailPoet.
 - Pas de suivi de progression (supprimé à la demande : l'espace est en libre accès).
 
 ## Charte GLPI (obligatoire pour tout visuel)

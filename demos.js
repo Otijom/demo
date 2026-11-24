@@ -113,7 +113,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "inventaire-reseau",
-      arcade: "https://app.arcade.software/share/dTRpHD3W5zET1I6cBuu9",
+      arcade: "",
       titre: "Inventorier les matériels réseau avec GLPI Inventory",
       categorie: "parc",
       duree: "3 min",
@@ -157,7 +157,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "entites",
-      arcade: "https://app.arcade.software/share/xfJPJo6FiPMFBgnInxej",
+      arcade: "",
       titre: "Organiser GLPI en entités",
       categorie: "administration",
       duree: "3 min",
@@ -168,7 +168,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "tableau-de-bord",
-      arcade: "https://app.arcade.software/share/7mBeyFvMEfGgDKgQOv1Z",
+      arcade: "",
       titre: "Piloter l'activité avec les tableaux de bord",
       categorie: "premiers-pas",
       duree: "2 min",
@@ -215,17 +215,17 @@ window.GLPI_DEMOS = {
     { mot: "Ticket", def: "Une demande ou un incident déclaré par un utilisateur, suivi jusqu'à sa résolution." }
   ],
 
-  /* Newsletter : formulaire MailPoet du site WordPress, en version iFrame.
-     1. WordPress > MailPoet > Formulaires > ouvrir le formulaire.
-     2. Panneau « Placement du formulaire » > « Shortcode et autres » >
-        copier le code de la version iFrame.
-     3. Le coller ci-dessous entre les guillemets simples de  iframe  (le code
-        complet <iframe ...></iframe> ou seulement l'adresse https://...).
-     4. hauteur : hauteur du formulaire en pixels. Augmentez-la si le bouton
-        d'inscription est coupé, diminuez-la s'il reste du blanc en bas.
-     Tant que  iframe  est vide, l'encart affiche un emplacement réservé. */
+  /* Newsletter (MailPoet, site WordPress glpi-project.org)
+     iframe : le code « version iFrame » du formulaire MailPoet, collé tel
+              quel ENTRE LES DEUX ACCENTS GRAVES ` ` (et non des guillemets,
+              car le code contient lui-même des guillemets).
+              WordPress > MailPoet > Formulaires > le formulaire >
+              « Placement du formulaire » > « Shortcode et autres ».
+     lien   : à défaut d'iFrame, adresse https:// d'une page d'inscription :
+              l'encart affiche alors un simple bouton vers cette page.
+     Les deux vides = encart newsletter masqué. */
   newsletter: {
-    iframe: '',
-    hauteur: 520
+    iframe: `<iframe width="100%" height="100%" scrolling="no" frameborder="0" src="https://www.glpi-project.org/?mailpoet_form_iframe=1" class="mailpoet_form_iframe" id="mailpoet_form_iframe" vspace="0" tabindex="0" onload="var _this = this; window.addEventListener('message', function(e) {if(e.data.MailPoetIframeHeight){_this.style.height = e.data.MailPoetIframeHeight;}})" marginwidth="0" marginheight="0" hspace="0" allowtransparency="true"></iframe>`,
+    lien: ''
   }
 };

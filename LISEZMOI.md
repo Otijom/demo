@@ -10,7 +10,7 @@ demos.js            LA LISTE DES DÉMOS : le seul fichier à modifier
 assets/img/         illustrations des tuiles (issues du kit GLPI)
 assets/brush/       coups de pinceau de la charte
 assets/logo-*.svg   logos GLPI (bleu et blanc)
-newsletter-mailpoet.css   style à coller dans MailPoet pour le formulaire newsletter
+newsletter-mailpoet.css   style à coller dans MailPoet pour habiller le formulaire newsletter
 ```
 
 ## Ajouter une Arcade dans un emplacement
@@ -37,20 +37,22 @@ newsletter-mailpoet.css   style à coller dans MailPoet pour le formulaire newsl
 - **Lexique** : les `mots` d'une démo doivent exister dans `lexique` pour s'afficher dans le lecteur.
 - **Format de l'Arcade** : si une démo apparaît avec des bandes, ajoutez `ratio: "XX%"` en reprenant la valeur du code d'intégration Arcade (`padding-bottom: calc(XX% + 41px)`).
 
-## Brancher la newsletter (MailPoet)
+## Newsletter (MailPoet)
 
-Le formulaire vient du site WordPress, où MailPoet est installé. Il s'affiche dans le portail en version iFrame : les inscrits arrivent directement dans les listes MailPoet habituelles.
+Le formulaire MailPoet du site WordPress s'affiche dans l'encart newsletter, en version iFrame. Les inscrits arrivent directement dans MailPoet.
 
-1. Dans WordPress > MailPoet > Formulaires, créez (ou dupliquez) un formulaire avec : Prénom, Nom, Adresse e-mail, une case à cocher personnalisée « Vous êtes déjà client ? », la case de consentement RGPD et le bouton.
-2. Collez le contenu de `newsletter-mailpoet.css` dans « CSS personnalisé » du formulaire : il reprend les couleurs et les polices du portail.
-3. Dans « Placement du formulaire » > « Shortcode et autres », copiez le code de la version iFrame.
-4. Collez-le dans `demos.js`, champ `newsletter.iframe`, et ajustez `hauteur` si le bouton est coupé.
+1. WordPress > MailPoet > Formulaires > le formulaire > « Placement du formulaire » > « Shortcode et autres » : copiez le code de la version iFrame.
+2. Collez-le dans `demos.js`, champ `newsletter.iframe`, **entre les deux accents graves** `` ` `` (pas entre guillemets : le code contient lui-même des guillemets, ce qui casserait le fichier).
+3. Le cadre prend automatiquement la hauteur du formulaire.
+4. Pour l'habiller aux couleurs du portail, collez le contenu de `newsletter-mailpoet.css` dans le « CSS personnalisé » du formulaire MailPoet.
 
-Si le formulaire reste vide une fois en ligne, le site WordPress interdit peut-être l'affichage dans d'autres sites (réglage de sécurité, souvent appelé X-Frame-Options ou frame-ancestors). La personne qui administre WordPress doit alors autoriser l'adresse du portail.
+Sans iFrame, `newsletter.lien` peut recevoir l'adresse d'une page d'inscription : l'encart affiche alors un simple bouton. Les deux champs vides : l'encart, son lien dans le menu et l'étape de la visite guidée sont masqués.
+
+Si le formulaire reste vide une fois en ligne, le site WordPress refuse peut-être l'affichage dans un autre site (réglage de sécurité X-Frame-Options ou frame-ancestors) : l'administrateur du WordPress doit autoriser l'adresse du portail. Un lien de secours sous le cadre permet de s'inscrire quand même.
 
 ## Visite guidée « Comment ça fonctionne ? »
 
-Le bouton en haut à droite (et le lien sous les boutons de l'accueil) lance une visite guidée interactive en 13 étapes. Chaque étape met en lumière le vrai élément de la page ou du lecteur : filtres, tuile à cliquer, démo, bouton plein écran, infos de la démo, parcours, lexique, newsletter.
+Le bouton en haut à droite (et le lien sous les boutons de l'accueil) lance une visite guidée interactive en 12 étapes (13 avec la newsletter). Chaque étape met en lumière le vrai élément de la page ou du lecteur : filtres, tuile à cliquer, démo, bouton plein écran, infos de la démo, parcours, lexique, newsletter si elle est activée.
 Aux étapes « Lancez une démo » et « Commencez un parcours », le visiteur clique lui-même sur l'élément (ou sur « Le faire pour moi »).
 Les textes se modifient dans `index.html`, dans la liste `VISITE` (cherchez « Visite guidée interactive »).
 Lien direct pour lancer la visite : `…/glpi-demos/#aide`.
