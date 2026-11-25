@@ -179,6 +179,43 @@ window.GLPI_DEMOS = {
     }
   ],
 
+  /* Démos de PLUGINS : fonctions qui ne sont pas incluses dans GLPI de base
+     et qu'il faut installer en plus. Elles s'affichent dans un encart à part,
+     sous les démos ci-dessus, avec la mention « Plugin ».
+     Mêmes champs qu'une démo, sans « categorie ». Liste vide = encart masqué. */
+  plugins: [
+    {
+      id: "plugin-glpi-ai",
+      arcade: "",
+      titre: "Un agent pour vous épauler avec GLPI AI",
+      duree: "2 min",
+      image: "assets/img/glpi-ai.webp",
+      resume: "Le plugin GLPI AI ajoute un assistant d’intelligence artificielle qui aide le technicien à traiter les tickets plus vite.",
+      etapes: ["Ouvrir un ticket", "Obtenir un résumé de la demande", "Utiliser la réponse proposée par l’assistant"],
+      mots: ["Plugin", "Ticket"]
+    },
+    {
+      id: "plugin-glpi-carbon",
+      arcade: "",
+      titre: "Mesurer l’empreinte carbone du parc avec GLPI Carbon",
+      duree: "2 min",
+      image: "assets/img/carbon.webp",
+      resume: "Le plugin GLPI Carbon estime la consommation d’électricité et les émissions de CO₂ de vos ordinateurs et équipements.",
+      etapes: ["Choisir les matériels à suivre", "Consulter l’empreinte d’un poste", "Suivre l’évolution sur le tableau de bord"],
+      mots: ["Plugin", "Actif", "Tableau de bord"]
+    },
+    {
+      id: "plugin-cancel-send",
+      arcade: "",
+      titre: "Annuler un message parti à la mauvaise personne avec Cancel Send",
+      duree: "1 min",
+      image: "assets/img/cancel-send.webp",
+      resume: "Vous venez d’envoyer un message sur un ticket… mais pas à la bonne personne ? Le plugin Cancel Send vous laisse quelques secondes pour annuler l’envoi.",
+      etapes: ["Envoyer un message sur un ticket", "Repérer l’erreur de destinataire et annuler l’envoi", "Corriger le destinataire, puis envoyer à nouveau"],
+      mots: ["Plugin", "Ticket"]
+    }
+  ],
+
   /* Parcours guidés : listes d'id de démos jouées dans l'ordre. */
   parcours: [
     {
@@ -206,7 +243,7 @@ window.GLPI_DEMOS = {
     { mot: "Entité", def: "Une partie de l'organisation (site, filiale, client) dont les données et les droits sont cloisonnés." },
     { mot: "Formulaire", def: "Page de demande guidée qui pose les bonnes questions et crée le ticket automatiquement." },
     { mot: "Groupe", def: "Un ensemble d'utilisateurs, souvent une équipe ou un service, à qui l'on confie des tickets ou des droits." },
-    { mot: "Plugin", def: "Une extension qui ajoute des fonctions à GLPI, comme GLPI Inventory pour l'inventaire réseau." },
+    { mot: "Plugin", def: "Une extension, à installer en plus de GLPI, qui lui ajoute des fonctions : GLPI Inventory pour l'inventaire réseau, GLPI Carbon pour l'empreinte carbone…" },
     { mot: "Profil", def: "Le jeu de droits qui définit ce qu'un utilisateur peut voir et faire (Self-Service, Technicien, Super-Admin…)." },
     { mot: "Récursivité", def: "Une option qui rend un élément ou un droit valable aussi dans toutes les sous-entités, sans le recréer pour chacune." },
     { mot: "SLA", def: "Engagement de délai (prise en charge, résolution) que GLPI applique et surveille sur les tickets." },

@@ -138,6 +138,23 @@ button { font: inherit; cursor: pointer; }
 .tuile[data-vide="true"] .tuile-visuel img { filter: grayscale(.35); opacity: .75; }
 .aucun { grid-column: 1 / -1; text-align: center; padding: 50px 20px; color: var(--texte-doux); background: var(--beige); border-radius: var(--rayon); }
 
+/* ---------- Plugins (fonctions ajoutées, non incluses dans GLPI de base) ---------- */
+.plugins-zone { background: var(--beige); }
+.plugins-zone[hidden] { display: none; }
+.plugins-intro { display: grid; grid-template-columns: 1fr 190px; gap: 32px; align-items: center; background: var(--blanc); border: 2px dashed var(--violet); border-radius: var(--rayon); padding: 28px 32px; margin-bottom: 32px; }
+.plugins-intro h2 { font-size: clamp(26px, 3vw, 34px); font-weight: 700; margin: 12px 0 10px; }
+.plugins-intro p { color: var(--texte-doux); max-width: 44em; }
+.plugins-intro p + p { margin-top: 8px; }
+.plugins-intro img { width: 190px; }
+.badge-plugin { display: inline-flex; align-items: center; gap: 7px; background: var(--violet); color: var(--bleu-fonce); font-family: var(--font-titre); font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 999px; }
+.badge-plugin svg, .tag-plugin svg, .note-plugin svg { width: 15px; height: 15px; flex: none; }
+.tag-plugin { display: inline-flex; align-items: center; gap: 5px; background: var(--violet); }
+.tag-plugin svg { width: 13px; height: 13px; }
+.note-plugin { display: flex; gap: 10px; align-items: flex-start; background: var(--beige); border-left: 4px solid var(--violet); border-radius: 10px; padding: 10px 14px; font-size: 14px; }
+.note-plugin svg { margin-top: 3px; }
+.note-plugin[hidden] { display: none; }
+@media (max-width: 700px) { .plugins-intro { grid-template-columns: 1fr; padding: 22px; } .plugins-intro img { display: none; } }
+
 /* ---------- Parcours ---------- */
 .parcours-zone { background: var(--bleu-fonce); color: var(--blanc); position: relative; overflow: hidden; }
 .parcours-zone .titre-section p { color: #C9D2F5; }
@@ -322,6 +339,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     </a>
     <nav class="nav" aria-label="Navigation principale">
       <a href="#demos">Les démos</a>
+      <a href="#plugins" id="navPlugins" hidden>Plugins</a>
       <a href="#parcours">Parcours</a>
       <a href="#lexique">Lexique</a>
       <a href="#newsletter" id="navNewsletter">Newsletter</a>
@@ -382,6 +400,20 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
         </label>
       </div>
       <div class="grille" id="grille"></div>
+    </div>
+  </section>
+
+  <section class="section plugins-zone" id="plugins" hidden>
+    <div class="wrap">
+      <div class="plugins-intro">
+        <div>
+          <span class="badge-plugin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg>Plugins : non inclus dans GLPI de base</span>
+          <h2>Allez plus loin avec les plugins</h2>
+          <p>Les démos de cet encart ne montrent pas des fonctions incluses dans GLPI. Elles présentent des <b>plugins</b> : des extensions que l’on installe en plus, pour ajouter de nouvelles possibilités.</p>
+        </div>
+        <img src="assets/img/ordinateur-ajout.webp" alt="">
+      </div>
+      <div class="grille" id="pluginsGrille"></div>
     </div>
   </section>
 
@@ -496,6 +528,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       <div class="secours" id="secours"></div>
     </div>
     <aside class="panneau">
+      <p class="note-plugin" id="lecteurPlugin" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg><span><b>Plugin</b> : cette fonction n’est pas incluse dans GLPI de base. Elle s’ajoute en installant une extension.</span></p>
       <p class="resume" id="lecteurResume"></p>
       <div>
         <h4>Dans cette démo</h4>
@@ -522,7 +555,9 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
   "use strict";
   const C = window.GLPI_DEMOS || { categories: [], demos: [], parcours: [], lexique: [] };
   const demos = C.demos;
-  const parId = Object.fromEntries(demos.map(d => [d.id, d]));
+  const plugins = C.plugins || [];
+  const parId = Object.fromEntries(demos.concat(plugins).map(d => [d.id, d]));
+  const estPlugin = id => plugins.some(p => p.id === id);
   const catLabel = Object.fromEntries(C.categories.map(c => [c.id, c.label]));
   const lexique = Object.fromEntries((C.lexique || []).map(t => [t.mot, t.def]));
   const $ = id => document.getElementById(id);
@@ -537,6 +572,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     return /^[A-Za-z0-9]{12,}$/.test(s) ? s : "";
   }
 
+  const ICO_PLUGIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg>';
   const ICO_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.5 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L8 4.64A1 1 0 0 0 6.5 5.5z"/></svg>';
 
   /* Filtres */
@@ -560,16 +596,28 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     const liste = demos.filter(d => (filtre === "tout" || d.categorie === filtre) &&
       (!q || norm([d.titre, d.resume, (d.mots || []).join(" "), catLabel[d.categorie] || ""].join(" ")).includes(q)));
     if (!liste.length) { $("grille").innerHTML = '<div class="aucun">Aucune démo ne correspond à « ' + esc(requete) + ' ». Essayez « ticket » ou « utilisateur ».</div>'; return; }
-    $("grille").innerHTML = liste.map(d => {
-      const vide = !idArcade(d.arcade);
-      const etat = vide ? '<span class="etat etat-bientot">Bientôt disponible</span>' : "";
-      return '<button type="button" class="tuile" data-id="' + esc(d.id) + '" data-vide="' + vide + '" aria-label="' + esc("Ouvrir la démo : " + d.titre) + '">' +
-        '<div class="tuile-visuel">' + etat + '<img src="' + esc(d.image) + '" alt=""><span class="lecture">' + ICO_PLAY + '</span></div>' +
-        '<div class="tuile-corps"><div class="tuile-meta"><span class="tag">' + esc(catLabel[d.categorie] || d.categorie) + '</span><span>' + esc(d.duree || "") + '</span></div>' +
-        '<h3>' + esc(d.titre) + '</h3><p>' + esc(d.resume) + '</p></div></button>';
-    }).join("");
+    $("grille").innerHTML = liste.map(d => tuileHTML(d, false)).join("");
+  }
+  function tuileHTML(d, plugin) {
+    const vide = !idArcade(d.arcade);
+    const etat = vide ? '<span class="etat etat-bientot">Bientôt disponible</span>' : "";
+    const tag = plugin ? '<span class="tag tag-plugin">' + ICO_PLUGIN + 'Plugin</span>' : '<span class="tag">' + esc(catLabel[d.categorie] || d.categorie) + '</span>';
+    return '<button type="button" class="tuile" data-id="' + esc(d.id) + '" data-vide="' + vide + '" aria-label="' + esc("Ouvrir la démo" + (plugin ? " du plugin" : "") + " : " + d.titre) + '">' +
+      '<div class="tuile-visuel">' + etat + '<img src="' + esc(d.image) + '" alt=""><span class="lecture">' + ICO_PLAY + '</span></div>' +
+      '<div class="tuile-corps"><div class="tuile-meta">' + tag + '<span>' + esc(d.duree || "") + '</span></div>' +
+      '<h3>' + esc(d.titre) + '</h3><p>' + esc(d.resume) + '</p></div></button>';
   }
   $("grille").addEventListener("click", e => { const t = e.target.closest(".tuile"); if (t) ouvrir(t.dataset.id, null); });
+
+  /* Plugins : encart à part, sous les démos. Liste vide = encart, lien du menu et étape de visite masqués. */
+  function renderPlugins() {
+    const ok = plugins.length > 0;
+    $("plugins").hidden = !ok;
+    $("navPlugins").hidden = !ok;
+    if (!ok) { const i = VISITE.findIndex(e => e.cible === ".plugins-intro"); if (i >= 0) VISITE.splice(i, 1); return; }
+    $("pluginsGrille").innerHTML = plugins.map(d => tuileHTML(d, true)).join("");
+  }
+  $("pluginsGrille").addEventListener("click", e => { const t = e.target.closest(".tuile"); if (t) ouvrir(t.dataset.id, null); });
 
   /* Parcours */
   function renderParcours() {
@@ -597,7 +645,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
   /* Lecteur */
   const dlg = $("lecteur");
   let courant = null, parcoursActif = null;
-  function sequence() { return parcoursActif != null ? C.parcours[parcoursActif].demos.filter(id => parId[id]) : demos.map(d => d.id); }
+  function sequence() { return parcoursActif != null ? C.parcours[parcoursActif].demos.filter(id => parId[id]) : (estPlugin(courant) ? plugins : demos).map(d => d.id); }
 
   function ouvrir(id, parcours) {
     const d = parId[id]; if (!d) return;
@@ -606,7 +654,8 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     const seq = sequence(), pos = seq.indexOf(id);
     const aid = idArcade(d.arcade);
     $("lecteurTitre").textContent = d.titre;
-    $("lecteurFil").textContent = (parcoursActif != null ? "Parcours « " + C.parcours[parcoursActif].titre + " »" : (catLabel[d.categorie] || "")) + " · " + (d.duree || "");
+    $("lecteurFil").textContent = (parcoursActif != null ? "Parcours « " + C.parcours[parcoursActif].titre + " »" : (estPlugin(id) ? "Plugin" : catLabel[d.categorie] || "")) + " · " + (d.duree || "");
+    $("lecteurPlugin").hidden = !estPlugin(id);
     $("lecteurResume").textContent = d.resume;
     $("lecteurEtapes").innerHTML = (d.etapes || []).map(s => "<li>" + esc(s) + "</li>").join("");
     const mots = (d.mots || []).filter(m => lexique[m]);
@@ -737,6 +786,8 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       texte: "Un résumé, ce que vous allez voir, et les mots de GLPI à connaître pour suivre sans vous perdre." },
     { lieu: "lecteur", cible: ".navigation", titre: "Passez à la démo suivante",
       texte: "Quand vous avez terminé, enchaînez avec la démo suivante ou revenez à la précédente." },
+    { lieu: "page", cible: ".plugins-intro", titre: "Les plugins",
+      texte: "Cet encart présente des plugins : des extensions à installer en plus de GLPI. Ce ne sont pas des fonctions incluses de base." },
     { lieu: "page", cible: ".parcours-grille", titre: "Les parcours",
       texte: "Un parcours enchaîne plusieurs démos dans un ordre pensé pour votre rôle : découvrir GLPI, organiser le support ou administrer la plateforme." },
     { lieu: "page", cible: '[data-parcours="0"]', clic: true, titre: "Commencez un parcours",
@@ -878,8 +929,8 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
   }
   window.addEventListener("hashchange", routeHash);
 
-  $("nbDemos").textContent = demos.length;
-  renderPuces(); renderLexique(); renderTuiles(); renderParcours(); renderConquis(); renderNewsletter(); routeHash();
+  $("nbDemos").textContent = demos.length + plugins.length;
+  renderPuces(); renderLexique(); renderTuiles(); renderPlugins(); renderParcours(); renderConquis(); renderNewsletter(); routeHash();
 })();
 </script>
 </body>

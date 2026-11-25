@@ -38,6 +38,14 @@ newsletter-mailpoet.css   style à coller dans MailPoet pour habiller le formula
 - **Lexique** : les `mots` d'une démo doivent exister dans `lexique` pour s'afficher dans le lecteur.
 - **Format de l'Arcade** : si une démo apparaît avec des bandes, ajoutez `ratio: "XX%"` en reprenant la valeur du code d'intégration Arcade (`padding-bottom: calc(XX% + 41px)`).
 
+## Démos de plugins
+
+Sous les démos, un encart à part présente des **plugins** : des fonctions qui ne sont pas incluses dans GLPI de base et qu'il faut installer en plus (GLPI AI, GLPI Carbon, Cancel Send). L'encart le dit clairement, chaque tuile porte la mention « Plugin » et le lecteur affiche un rappel.
+
+- Les démos de plugins se trouvent dans `demos.js`, rubrique `plugins` : mêmes champs qu'une démo, sans `categorie`. Le lien Arcade se colle dans `arcade` comme pour les autres.
+- Dans le lecteur, Précédente / Suivante passent d'un plugin à l'autre.
+- Liste vide : l'encart, le lien « Plugins » du menu et l'étape de la visite guidée sont masqués.
+
 ## Bloc « Alors, conquis ? »
 
 Juste avant le pied de page, deux cartes invitent à passer à l'action : l'essai gratuit de 45 jours sur une instance GLPI Cloud, et la page des tarifs. Sur ordinateur, chaque carte n'affiche qu'un QR code, sans bouton : le visiteur scanne avec son téléphone et l'écran ne quitte jamais l'espace démo (utile sur un stand). Sur téléphone, c'est l'inverse : le QR code est masqué et un bouton ouvre le lien.
@@ -64,7 +72,7 @@ Si le formulaire reste vide une fois en ligne, le site WordPress refuse peut-êt
 
 ## Visite guidée « Comment ça fonctionne ? »
 
-Le bouton en haut à droite (et le lien sous les boutons de l'accueil) lance une visite guidée interactive en 13 étapes (14 avec la newsletter). Chaque étape met en lumière le vrai élément de la page ou du lecteur : filtres, tuile à cliquer, démo, bouton plein écran, infos de la démo, parcours, lexique, bloc « Alors, conquis ? », newsletter si elle est activée.
+Le bouton en haut à droite (et le lien sous les boutons de l'accueil) lance une visite guidée interactive en 14 étapes (15 avec la newsletter). Chaque étape met en lumière le vrai élément de la page ou du lecteur : filtres, tuile à cliquer, démo, bouton plein écran, infos de la démo, plugins, parcours, lexique, bloc « Alors, conquis ? », newsletter si elle est activée.
 Aux étapes « Lancez une démo » et « Commencez un parcours », le visiteur clique lui-même sur l'élément (ou sur « Le faire pour moi »).
 Les textes se modifient dans `index.html`, dans la liste `VISITE` (cherchez « Visite guidée interactive »).
 Lien direct pour lancer la visite : `…/glpi-demos/#aide`.
