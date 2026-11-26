@@ -278,6 +278,12 @@ dl.termes { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap
 .lien-plein svg { width: 15px; height: 15px; color: var(--bleu); }
 .cadre-arcade:fullscreen { padding-bottom: 0; height: 100%; border-radius: 0; background: #000; }
 .cadre-arcade:-webkit-full-screen { padding-bottom: 0; height: 100%; border-radius: 0; background: #000; }
+/* Bouton « Quitter le plein écran » : visible uniquement quand la démo est en plein écran */
+.btn-quitter-plein { display: none; position: absolute; z-index: 2; top: 16px; right: 16px; align-items: center; gap: 8px; height: 40px; padding: 0 16px 0 12px; border: 1.5px solid rgba(152,224,255,.55); border-radius: 999px; background: rgba(30,43,98,.88); color: var(--blanc); font-family: var(--font-titre); font-weight: 600; font-size: 14px; box-shadow: 0 6px 18px -6px rgba(0,0,0,.5); opacity: .8; transition: opacity .15s, background .15s; }
+.btn-quitter-plein:hover, .btn-quitter-plein:focus-visible { opacity: 1; background: var(--bleu-fonce); }
+.btn-quitter-plein svg { width: 18px; height: 18px; color: var(--bleu-clair); }
+.cadre-arcade:fullscreen .btn-quitter-plein { display: inline-flex; }
+.cadre-arcade:-webkit-full-screen .btn-quitter-plein { display: inline-flex; }
 
 /* ---------- Pied de page ---------- */
 .pied { background: var(--bleu-fonce); color: #C9D2F5; font-size: 14px; }
@@ -668,7 +674,8 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     const cadre = $("cadre");
     cadre.style.setProperty("--ratio", d.ratio || "56.25%");
     if (aid) {
-      cadre.innerHTML = '<iframe src="https://demo.arcade.software/' + aid + '?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="' + esc(d.titre) + '" loading="lazy" allowfullscreen allow="clipboard-write; fullscreen"></iframe>';
+      cadre.innerHTML = '<iframe src="https://demo.arcade.software/' + aid + '?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="' + esc(d.titre) + '" loading="lazy" allowfullscreen allow="clipboard-write; fullscreen"></iframe>' +
+        '<button type="button" class="btn-quitter-plein" data-plein aria-label="Quitter le plein écran (ou touche Échap)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>Quitter le plein écran</button>';
       $("secours").innerHTML = '<span>Cliquez sur les points lumineux pour avancer.<button type="button" class="lien-plein" data-plein><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Voir en plein écran</button></span>';
     } else {
       cadre.innerHTML = '<div class="emplacement-vide"><div><img src="' + esc(d.image) + '" alt=""><h3>Démo bientôt disponible</h3><p>Cette démonstration est en cours de préparation. En attendant, découvrez les autres sujets.</p></div></div>';
@@ -697,6 +704,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
   }
   $("btnPleinEcran").addEventListener("click", basculerPleinEcran);
   $("secours").addEventListener("click", e => { if (e.target.closest("[data-plein]")) basculerPleinEcran(); });
+  $("cadre").addEventListener("click", e => { if (e.target.closest("[data-plein]")) basculerPleinEcran(); });
   dlg.addEventListener("close", () => {
     $("cadre").innerHTML = ""; courant = null; parcoursActif = null;
     if (location.hash.startsWith("#demo-")) history.replaceState(null, "", location.pathname + location.search);

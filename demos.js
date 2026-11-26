@@ -186,7 +186,7 @@ window.GLPI_DEMOS = {
   plugins: [
     {
       id: "plugin-glpi-ai",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/y5rJcEhw2VjLoHbhJz4M",
       titre: "Un agent pour vous épauler avec GLPI AI",
       duree: "2 min",
       image: "assets/img/glpi-ai.webp",
@@ -196,7 +196,7 @@ window.GLPI_DEMOS = {
     },
     {
       id: "plugin-glpi-carbon",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/BLe1vcEqqUlwkvV8znum",
       titre: "Mesurer l’empreinte carbone du parc avec GLPI Carbon",
       duree: "2 min",
       image: "assets/img/carbon.webp",
@@ -206,11 +206,11 @@ window.GLPI_DEMOS = {
     },
     {
       id: "plugin-cancel-send",
-      arcade: "",
+      arcade: "https://app.arcade.software/share/c8FEl68J3J09ETRqRhwY",
       titre: "Annuler un message parti à la mauvaise personne avec Cancel Send",
       duree: "1 min",
       image: "assets/img/cancel-send.webp",
-      resume: "Vous venez d’envoyer un message sur un ticket… mais pas à la bonne personne ? Le plugin Cancel Send vous laisse quelques secondes pour annuler l’envoi.",
+      resume: "Le plugin cancel send laisse quelques secondes pour annuler une réponse envoyée par erreur sur un ticket.",
       etapes: ["Envoyer un message sur un ticket", "Repérer l’erreur de destinataire et annuler l’envoi", "Corriger le destinataire, puis envoyer à nouveau"],
       mots: ["Plugin", "Ticket"]
     }
