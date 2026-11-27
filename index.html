@@ -138,23 +138,6 @@ button { font: inherit; cursor: pointer; }
 .tuile[data-vide="true"] .tuile-visuel img { filter: grayscale(.35); opacity: .75; }
 .aucun { grid-column: 1 / -1; text-align: center; padding: 50px 20px; color: var(--texte-doux); background: var(--beige); border-radius: var(--rayon); }
 
-/* ---------- Plugins (fonctions ajoutées, non incluses dans GLPI de base) ---------- */
-.plugins-zone { background: var(--beige); }
-.plugins-zone[hidden] { display: none; }
-.plugins-intro { display: grid; grid-template-columns: 1fr 190px; gap: 32px; align-items: center; background: var(--blanc); border: 2px dashed var(--violet); border-radius: var(--rayon); padding: 28px 32px; margin-bottom: 32px; }
-.plugins-intro h2 { font-size: clamp(26px, 3vw, 34px); font-weight: 700; margin: 12px 0 10px; }
-.plugins-intro p { color: var(--texte-doux); max-width: 44em; }
-.plugins-intro p + p { margin-top: 8px; }
-.plugins-intro img { width: 190px; }
-.badge-plugin { display: inline-flex; align-items: center; gap: 7px; background: var(--violet); color: var(--bleu-fonce); font-family: var(--font-titre); font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 999px; }
-.badge-plugin svg, .tag-plugin svg, .note-plugin svg { width: 15px; height: 15px; flex: none; }
-.tag-plugin { display: inline-flex; align-items: center; gap: 5px; background: var(--violet); }
-.tag-plugin svg { width: 13px; height: 13px; }
-.note-plugin { display: flex; gap: 10px; align-items: flex-start; background: var(--beige); border-left: 4px solid var(--violet); border-radius: 10px; padding: 10px 14px; font-size: 14px; }
-.note-plugin svg { margin-top: 3px; }
-.note-plugin[hidden] { display: none; }
-@media (max-width: 700px) { .plugins-intro { grid-template-columns: 1fr; padding: 22px; } .plugins-intro img { display: none; } }
-
 /* ---------- Parcours ---------- */
 .parcours-zone { background: var(--bleu-fonce); color: var(--blanc); position: relative; overflow: hidden; }
 .parcours-zone .titre-section p { color: #C9D2F5; }
@@ -195,13 +178,11 @@ dl.termes { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap
 .conquis-carte .badge.neutre { background: var(--bleu-ciel); }
 .conquis-carte h3 { font-size: 20px; font-weight: 700; margin: 0 0 8px; }
 .conquis-carte p { font-size: 15px; color: var(--texte-doux); margin: 0; }
-/* Pas de bouton sur ordinateur : on ne quitte jamais l'espace démo (écran de stand), on scanne le QR code */
-.conquis-carte .btn { display: none; }
 .conquis-carte .qr { margin: 0; text-align: center; }
 .conquis-carte .qr img { display: block; width: 168px; height: 168px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--gris); }
 .conquis-carte .qr figcaption { margin-top: 8px; font-family: var(--font-titre); font-weight: 600; font-size: 13px; color: var(--bleu-fonce); }
-/* Sur téléphone, le QR code n'a pas d'intérêt : on affiche le bouton à la place */
-@media (max-width: 700px) { .conquis-zone .deco-crochet { display: none; } .conquis-cartes { grid-template-columns: 1fr; } .conquis-carte { grid-template-columns: 1fr; } .conquis-carte .qr { display: none; } .conquis-carte p { margin-bottom: 18px; } .conquis-carte .btn { display: inline-flex; } }
+/* Sur petit écran : cartes empilées, QR code centré (aucun lien : la page ne doit jamais être quittée) */
+@media (max-width: 700px) { .conquis-zone .deco-crochet { display: none; } .conquis-cartes { grid-template-columns: 1fr; } .conquis-carte { grid-template-columns: 1fr; text-align: center; justify-items: center; } }
 
 /* ---------- Newsletter ---------- */
 .newsletter-zone { background: var(--bleu-ciel); }
@@ -278,12 +259,6 @@ dl.termes { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap
 .lien-plein svg { width: 15px; height: 15px; color: var(--bleu); }
 .cadre-arcade:fullscreen { padding-bottom: 0; height: 100%; border-radius: 0; background: #000; }
 .cadre-arcade:-webkit-full-screen { padding-bottom: 0; height: 100%; border-radius: 0; background: #000; }
-/* Bouton « Quitter le plein écran » : visible uniquement quand la démo est en plein écran */
-.btn-quitter-plein { display: none; position: absolute; z-index: 2; top: 16px; right: 16px; align-items: center; gap: 8px; height: 40px; padding: 0 16px 0 12px; border: 1.5px solid rgba(152,224,255,.55); border-radius: 999px; background: rgba(30,43,98,.88); color: var(--blanc); font-family: var(--font-titre); font-weight: 600; font-size: 14px; box-shadow: 0 6px 18px -6px rgba(0,0,0,.5); opacity: .8; transition: opacity .15s, background .15s; }
-.btn-quitter-plein:hover, .btn-quitter-plein:focus-visible { opacity: 1; background: var(--bleu-fonce); }
-.btn-quitter-plein svg { width: 18px; height: 18px; color: var(--bleu-clair); }
-.cadre-arcade:fullscreen .btn-quitter-plein { display: inline-flex; }
-.cadre-arcade:-webkit-full-screen .btn-quitter-plein { display: inline-flex; }
 
 /* ---------- Pied de page ---------- */
 .pied { background: var(--bleu-fonce); color: #C9D2F5; font-size: 14px; }
@@ -345,7 +320,6 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     </a>
     <nav class="nav" aria-label="Navigation principale">
       <a href="#demos">Les démos</a>
-      <a href="#plugins" id="navPlugins" hidden>Plugins</a>
       <a href="#parcours">Parcours</a>
       <a href="#lexique">Lexique</a>
       <a href="#newsletter" id="navNewsletter">Newsletter</a>
@@ -409,20 +383,6 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     </div>
   </section>
 
-  <section class="section plugins-zone" id="plugins" hidden>
-    <div class="wrap">
-      <div class="plugins-intro">
-        <div>
-          <span class="badge-plugin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg>Plugins : non inclus dans GLPI de base</span>
-          <h2>Allez plus loin avec les plugins</h2>
-          <p>Les démos de cet encart ne montrent pas des fonctions incluses dans GLPI. Elles présentent des <b>plugins</b> : des extensions que l’on installe en plus, pour ajouter de nouvelles possibilités.</p>
-        </div>
-        <img src="assets/img/ordinateur-ajout.webp" alt="">
-      </div>
-      <div class="grille" id="pluginsGrille"></div>
-    </div>
-  </section>
-
   <section class="section parcours-zone" id="parcours">
     <img class="deco-crochet" src="assets/brush/crochet-bleu.svg" alt="">
     <div class="wrap">
@@ -464,7 +424,6 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
             <span class="badge">Gratuit pendant 45 jours</span>
             <h3>Essayez GLPI dans le cloud</h3>
             <p>Créez votre propre instance GLPI hébergée et testez-la avec vos données, sans rien installer.</p>
-            <a class="btn btn-jaune" target="_blank" rel="noopener">Démarrer l'essai gratuit ↗</a>
           </div>
           <figure class="qr"><img alt="QR code vers l'inscription à l'essai gratuit GLPI Cloud" width="168" height="168"><figcaption>Scannez avec votre téléphone</figcaption></figure>
         </article>
@@ -473,7 +432,6 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
             <span class="badge neutre">Offres GLPI Network</span>
             <h3>Choisissez votre offre</h3>
             <p>Comparez les offres GLPI Network et trouvez celle qui correspond à votre organisation.</p>
-            <a class="btn btn-fonce" target="_blank" rel="noopener">Voir les tarifs ↗</a>
           </div>
           <figure class="qr"><img alt="QR code vers la page des tarifs GLPI" width="168" height="168"><figcaption>Scannez avec votre téléphone</figcaption></figure>
         </article>
@@ -534,7 +492,6 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       <div class="secours" id="secours"></div>
     </div>
     <aside class="panneau">
-      <p class="note-plugin" id="lecteurPlugin" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg><span><b>Plugin</b> : cette fonction n’est pas incluse dans GLPI de base. Elle s’ajoute en installant une extension.</span></p>
       <p class="resume" id="lecteurResume"></p>
       <div>
         <h4>Dans cette démo</h4>
@@ -561,9 +518,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
   "use strict";
   const C = window.GLPI_DEMOS || { categories: [], demos: [], parcours: [], lexique: [] };
   const demos = C.demos;
-  const plugins = C.plugins || [];
-  const parId = Object.fromEntries(demos.concat(plugins).map(d => [d.id, d]));
-  const estPlugin = id => plugins.some(p => p.id === id);
+  const parId = Object.fromEntries(demos.map(d => [d.id, d]));
   const catLabel = Object.fromEntries(C.categories.map(c => [c.id, c.label]));
   const lexique = Object.fromEntries((C.lexique || []).map(t => [t.mot, t.def]));
   const $ = id => document.getElementById(id);
@@ -578,7 +533,6 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     return /^[A-Za-z0-9]{12,}$/.test(s) ? s : "";
   }
 
-  const ICO_PLUGIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg>';
   const ICO_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.5 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L8 4.64A1 1 0 0 0 6.5 5.5z"/></svg>';
 
   /* Filtres */
@@ -602,28 +556,16 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     const liste = demos.filter(d => (filtre === "tout" || d.categorie === filtre) &&
       (!q || norm([d.titre, d.resume, (d.mots || []).join(" "), catLabel[d.categorie] || ""].join(" ")).includes(q)));
     if (!liste.length) { $("grille").innerHTML = '<div class="aucun">Aucune démo ne correspond à « ' + esc(requete) + ' ». Essayez « ticket » ou « utilisateur ».</div>'; return; }
-    $("grille").innerHTML = liste.map(d => tuileHTML(d, false)).join("");
-  }
-  function tuileHTML(d, plugin) {
-    const vide = !idArcade(d.arcade);
-    const etat = vide ? '<span class="etat etat-bientot">Bientôt disponible</span>' : "";
-    const tag = plugin ? '<span class="tag tag-plugin">' + ICO_PLUGIN + 'Plugin</span>' : '<span class="tag">' + esc(catLabel[d.categorie] || d.categorie) + '</span>';
-    return '<button type="button" class="tuile" data-id="' + esc(d.id) + '" data-vide="' + vide + '" aria-label="' + esc("Ouvrir la démo" + (plugin ? " du plugin" : "") + " : " + d.titre) + '">' +
-      '<div class="tuile-visuel">' + etat + '<img src="' + esc(d.image) + '" alt=""><span class="lecture">' + ICO_PLAY + '</span></div>' +
-      '<div class="tuile-corps"><div class="tuile-meta">' + tag + '<span>' + esc(d.duree || "") + '</span></div>' +
-      '<h3>' + esc(d.titre) + '</h3><p>' + esc(d.resume) + '</p></div></button>';
+    $("grille").innerHTML = liste.map(d => {
+      const vide = !idArcade(d.arcade);
+      const etat = vide ? '<span class="etat etat-bientot">Bientôt disponible</span>' : "";
+      return '<button type="button" class="tuile" data-id="' + esc(d.id) + '" data-vide="' + vide + '" aria-label="' + esc("Ouvrir la démo : " + d.titre) + '">' +
+        '<div class="tuile-visuel">' + etat + '<img src="' + esc(d.image) + '" alt=""><span class="lecture">' + ICO_PLAY + '</span></div>' +
+        '<div class="tuile-corps"><div class="tuile-meta"><span class="tag">' + esc(catLabel[d.categorie] || d.categorie) + '</span><span>' + esc(d.duree || "") + '</span></div>' +
+        '<h3>' + esc(d.titre) + '</h3><p>' + esc(d.resume) + '</p></div></button>';
+    }).join("");
   }
   $("grille").addEventListener("click", e => { const t = e.target.closest(".tuile"); if (t) ouvrir(t.dataset.id, null); });
-
-  /* Plugins : encart à part, sous les démos. Liste vide = encart, lien du menu et étape de visite masqués. */
-  function renderPlugins() {
-    const ok = plugins.length > 0;
-    $("plugins").hidden = !ok;
-    $("navPlugins").hidden = !ok;
-    if (!ok) { const i = VISITE.findIndex(e => e.cible === ".plugins-intro"); if (i >= 0) VISITE.splice(i, 1); return; }
-    $("pluginsGrille").innerHTML = plugins.map(d => tuileHTML(d, true)).join("");
-  }
-  $("pluginsGrille").addEventListener("click", e => { const t = e.target.closest(".tuile"); if (t) ouvrir(t.dataset.id, null); });
 
   /* Parcours */
   function renderParcours() {
@@ -651,7 +593,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
   /* Lecteur */
   const dlg = $("lecteur");
   let courant = null, parcoursActif = null;
-  function sequence() { return parcoursActif != null ? C.parcours[parcoursActif].demos.filter(id => parId[id]) : (estPlugin(courant) ? plugins : demos).map(d => d.id); }
+  function sequence() { return parcoursActif != null ? C.parcours[parcoursActif].demos.filter(id => parId[id]) : demos.map(d => d.id); }
 
   function ouvrir(id, parcours) {
     const d = parId[id]; if (!d) return;
@@ -660,8 +602,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     const seq = sequence(), pos = seq.indexOf(id);
     const aid = idArcade(d.arcade);
     $("lecteurTitre").textContent = d.titre;
-    $("lecteurFil").textContent = (parcoursActif != null ? "Parcours « " + C.parcours[parcoursActif].titre + " »" : (estPlugin(id) ? "Plugin" : catLabel[d.categorie] || "")) + " · " + (d.duree || "");
-    $("lecteurPlugin").hidden = !estPlugin(id);
+    $("lecteurFil").textContent = (parcoursActif != null ? "Parcours « " + C.parcours[parcoursActif].titre + " »" : (catLabel[d.categorie] || "")) + " · " + (d.duree || "");
     $("lecteurResume").textContent = d.resume;
     $("lecteurEtapes").innerHTML = (d.etapes || []).map(s => "<li>" + esc(s) + "</li>").join("");
     const mots = (d.mots || []).filter(m => lexique[m]);
@@ -674,8 +615,7 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     const cadre = $("cadre");
     cadre.style.setProperty("--ratio", d.ratio || "56.25%");
     if (aid) {
-      cadre.innerHTML = '<iframe src="https://demo.arcade.software/' + aid + '?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="' + esc(d.titre) + '" loading="lazy" allowfullscreen allow="clipboard-write; fullscreen"></iframe>' +
-        '<button type="button" class="btn-quitter-plein" data-plein aria-label="Quitter le plein écran (ou touche Échap)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>Quitter le plein écran</button>';
+      cadre.innerHTML = '<iframe src="https://demo.arcade.software/' + aid + '?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="' + esc(d.titre) + '" loading="lazy" allowfullscreen allow="clipboard-write; fullscreen"></iframe>';
       $("secours").innerHTML = '<span>Cliquez sur les points lumineux pour avancer.<button type="button" class="lien-plein" data-plein><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Voir en plein écran</button></span>';
     } else {
       cadre.innerHTML = '<div class="emplacement-vide"><div><img src="' + esc(d.image) + '" alt=""><h3>Démo bientôt disponible</h3><p>Cette démonstration est en cours de préparation. En attendant, découvrez les autres sujets.</p></div></div>';
@@ -704,7 +644,6 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
   }
   $("btnPleinEcran").addEventListener("click", basculerPleinEcran);
   $("secours").addEventListener("click", e => { if (e.target.closest("[data-plein]")) basculerPleinEcran(); });
-  $("cadre").addEventListener("click", e => { if (e.target.closest("[data-plein]")) basculerPleinEcran(); });
   dlg.addEventListener("close", () => {
     $("cadre").innerHTML = ""; courant = null; parcoursActif = null;
     if (location.hash.startsWith("#demo-")) history.replaceState(null, "", location.pathname + location.search);
@@ -727,13 +666,12 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
     let une = false;
     [["conquisEssai", cq.essai], ["conquisTarifs", cq.tarifs]].forEach(([id, c]) => {
       const carte = $(id), lien = String((c && c.lien) || "").trim();
-      const ok = /^https:\/\//.test(lien);
+      /* Pas de lien cliquable : seul le QR code mène à l'adresse (écran de stand) */
+      const ok = /^https:\/\//.test(lien) && !!(c && c.qr);
       carte.hidden = !ok;
       if (!ok) return;
       une = true;
-      carte.querySelector(".btn").href = lien;
-      const fig = carte.querySelector(".qr");
-      if (c.qr) fig.querySelector("img").src = c.qr; else fig.remove();
+      carte.querySelector(".qr img").src = c.qr;
     });
     $("conquis").hidden = !une;
     if (!une) { const i = VISITE.findIndex(e => e.cible === ".conquis-cartes"); if (i >= 0) VISITE.splice(i, 1); }
@@ -794,8 +732,6 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
       texte: "Un résumé, ce que vous allez voir, et les mots de GLPI à connaître pour suivre sans vous perdre." },
     { lieu: "lecteur", cible: ".navigation", titre: "Passez à la démo suivante",
       texte: "Quand vous avez terminé, enchaînez avec la démo suivante ou revenez à la précédente." },
-    { lieu: "page", cible: ".plugins-intro", titre: "Les plugins",
-      texte: "Cet encart présente des plugins : des extensions à installer en plus de GLPI. Ce ne sont pas des fonctions incluses de base." },
     { lieu: "page", cible: ".parcours-grille", titre: "Les parcours",
       texte: "Un parcours enchaîne plusieurs démos dans un ordre pensé pour votre rôle : découvrir GLPI, organiser le support ou administrer la plateforme." },
     { lieu: "page", cible: '[data-parcours="0"]', clic: true, titre: "Commencez un parcours",
@@ -937,8 +873,8 @@ dialog.lecteur::backdrop { background: rgba(20, 28, 66, .72); backdrop-filter: b
   }
   window.addEventListener("hashchange", routeHash);
 
-  $("nbDemos").textContent = demos.length + plugins.length;
-  renderPuces(); renderLexique(); renderTuiles(); renderPlugins(); renderParcours(); renderConquis(); renderNewsletter(); routeHash();
+  $("nbDemos").textContent = demos.length;
+  renderPuces(); renderLexique(); renderTuiles(); renderParcours(); renderConquis(); renderNewsletter(); routeHash();
 })();
 </script>
 </body>
